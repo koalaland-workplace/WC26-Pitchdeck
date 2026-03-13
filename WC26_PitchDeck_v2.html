@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>WC26 NFT Fantasy — Pitch Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#050D1C; --card:#0C1829; --card2:#0F1E34;
+  --green:#00E676; --greendk:#00B248; --gold:#FFD600;
+  --blue:#1E88E5; --poly:#7B3FE4; --white:#FFFFFF;
+  --light:#A8C0D6; --muted:#4E6A85; --border:#162640;
+  --red:#FF5252; --orange:#FF6D00; --teal:#00BFA5;
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);}
+body{font-family:'Barlow',sans-serif;}
+.lang-ko body,.lang-ko{font-family:'Noto Sans KR','Barlow',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.cond{font-family:'Barlow Condensed',sans-serif;}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden;}
+
+/* SLIDES */
+.slide{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity .45s cubic-bezier(.4,0,.2,1),transform .45s cubic-bezier(.4,0,.2,1);
+  transform:translateX(60px);background:var(--bg);overflow:hidden;
+}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.exit-left{opacity:0;transform:translateX(-60px);}
+.slide::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+  opacity:.4;
+}
+.stars{
+  position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1.5px 1.5px at 8% 12%,rgba(0,230,118,.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 92% 18%,rgba(255,214,0,.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 45% 88%,rgba(0,230,118,.3) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 78% 91%,rgba(123,63,228,.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 20% 75%,rgba(30,136,229,.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 60% 6%,rgba(255,214,0,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 88% 55%,rgba(0,230,118,.2) 0%,transparent 100%);
+}
+.z1{position:relative;z-index:1;}
+.topbar{position:absolute;top:0;left:0;right:0;height:4px;z-index:10;background:var(--green);}
+.topbar.gold{background:var(--gold);}
+.topbar.poly{background:var(--poly);}
+.topbar.blue{background:var(--blue);}
+.topbar.multi{background:linear-gradient(90deg,var(--green) 0%,var(--gold) 50%,var(--poly) 100%);}
+.topbar.red{background:linear-gradient(90deg,var(--green) 0%,var(--teal) 40%,var(--blue) 70%,var(--poly) 100%);}
+.section-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:5px;font-weight:700;color:var(--green);text-transform:uppercase;margin-bottom:12px;display:block;}
+.section-tag.gold{color:var(--gold);}
+.section-tag.poly{color:var(--poly);}
+.section-tag.blue{color:var(--blue);}
+.section-tag.red{color:var(--red);}
+.content{position:relative;z-index:1;width:100%;height:100%;padding:52px 60px 44px;display:flex;flex-direction:column;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:4px;box-shadow:0 8px 32px rgba(0,0,0,.4);}
+.accent{width:4px;border-radius:2px;background:var(--green);flex-shrink:0;}
+.accent.gold{background:var(--gold);}
+.accent.blue{background:var(--blue);}
+.accent.poly{background:var(--poly);}
+.accent.red{background:var(--red);}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px 20px 18px;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.4);}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.stat-card.green::before{background:var(--green);}
+.stat-card.gold::before{background:var(--gold);}
+.stat-card.blue::before{background:var(--blue);}
+.stat-val{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;line-height:1;margin-bottom:8px;}
+.stat-label{font-size:12px;color:var(--light);font-weight:500;}
+.mod-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:18px 16px 16px 20px;display:flex;flex-direction:column;gap:5px;position:relative;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.3);transition:transform .2s,box-shadow .2s;}
+.mod-card:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.5);}
+.mod-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;}
+.mod-card.c-blue::before{background:var(--blue);}
+.mod-card.c-green::before{background:var(--green);}
+.mod-card.c-gold::before{background:var(--gold);}
+.mod-card.c-orange::before{background:var(--orange);}
+.mod-card.c-poly::before{background:var(--poly);}
+.mod-card.c-teal::before{background:var(--teal);}
+.mod-code{font-size:10px;font-weight:700;letter-spacing:2px;font-family:'Barlow Condensed',sans-serif;}
+.mod-title{font-size:14px;font-weight:700;color:var(--white);}
+.mod-desc{font-size:11.5px;color:var(--light);line-height:1.5;}
+.pillar{background:var(--card);border:1px solid var(--border);border-radius:4px;flex:1;display:flex;flex-direction:column;align-items:center;padding:24px 18px 20px;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.4);transition:transform .2s;}
+.pillar:hover{transform:translateY(-3px);}
+.pillar::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.pillar.green::before{background:var(--green);}
+.pillar.gold::before{background:var(--gold);}
+.pillar.poly::before{background:var(--poly);}
+.pillar-icon{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:14px;}
+.pillar-icon.green{background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.3);}
+.pillar-icon.gold{background:rgba(255,214,0,.1);border:1px solid rgba(255,214,0,.3);}
+.pillar-icon.poly{background:rgba(123,63,228,.12);border:1px solid rgba(123,63,228,.3);}
+.pillar-title{font-size:18px;font-weight:800;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;margin-bottom:4px;}
+.badge{display:inline-block;border-radius:3px;padding:4px 12px;font-size:12px;font-weight:700;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;margin:8px 0 3px;}
+.badge.green{background:var(--green);color:#000;}
+.badge.gold{background:var(--gold);color:#000;}
+.badge.poly{background:var(--poly);color:#fff;}
+.pillar-note{font-size:11px;color:var(--muted);font-style:italic;margin-bottom:12px;}
+.pillar-list{text-align:left;width:100%;}
+.pillar-list li{font-size:11.5px;color:var(--light);padding:3px 0 3px 14px;position:relative;border-bottom:1px solid rgba(22,38,64,.5);}
+.pillar-list li::before{content:'—';position:absolute;left:0;color:var(--muted);}
+.pillar-list li:last-child{border-bottom:none;}
+.vg-card{background:var(--card);border:1px solid var(--border);border-radius:4px;flex:1;padding:20px 18px;display:flex;flex-direction:column;gap:7px;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.4);}
+.vg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.vg-card.green::before{background:var(--green);}
+.vg-card.blue::before{background:var(--blue);}
+.vg-card.gold::before{background:var(--gold);}
+.vg-badge{display:inline-block;padding:3px 9px;border-radius:2px;font-size:9px;font-weight:700;letter-spacing:3px;font-family:'Barlow Condensed',sans-serif;width:fit-content;}
+.vg-badge.green{background:var(--green);color:#000;}
+.vg-badge.blue{background:var(--blue);color:#fff;}
+.vg-badge.gold{background:var(--gold);color:#000;}
+.vg-price{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:900;line-height:1;margin:4px 0 1px;}
+.vg-price.green{color:var(--green);}
+.vg-price.blue{color:var(--blue);}
+.vg-price.gold{color:var(--gold);}
+.phase-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.3);transition:transform .2s;flex:1;}
+.phase-card:hover{transform:translateY(-3px);}
+.phase-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;margin-bottom:3px;}
+.phase-name{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--white);margin-bottom:2px;}
+.phase-sub{font-size:9px;color:var(--muted);line-height:1.4;}
+.data-table{width:100%;border-collapse:collapse;font-size:12px;}
+.data-table th{background:rgba(0,230,118,.07);color:var(--green);font-weight:700;padding:7px 12px;text-align:left;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;font-size:11px;border-bottom:1px solid var(--border);}
+.data-table td{padding:6px 12px;color:var(--light);border-bottom:1px solid rgba(22,38,64,.7);}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr.total td{color:var(--gold);font-weight:700;}
+.data-table tr:hover td{background:rgba(255,255,255,.02);}
+.dao-tier{background:var(--card2);border:1px solid var(--border);border-left:3px solid;border-radius:0 4px 4px 0;padding:11px 14px;}
+.dao-tier.entry{border-color:var(--muted);}
+.dao-tier.committed{border-color:var(--blue);}
+.dao-tier.governor{border-color:var(--green);}
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:12px 18px;border-radius:4px;font-weight:700;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;text-decoration:none;transition:transform .2s,box-shadow .2s;cursor:pointer;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.3);border:none;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.4);}
+.btn.green{background:var(--green);color:#000;}
+.btn.blue{background:var(--blue);color:#fff;}
+.btn.gold{background:var(--gold);color:#000;}
+.check-item{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border-radius:4px;background:var(--card2);border:1px solid var(--border);font-size:12.5px;}
+.check-item .ico{font-size:15px;flex-shrink:0;margin-top:1px;}
+.check-item.ok{border-left:3px solid var(--green);}
+.check-item.no{border-left:3px solid var(--red);}
+.check-item.ok .txt{color:var(--green);}
+.check-item.no .txt{color:var(--red);}
+.emit-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;position:relative;overflow:hidden;}
+.emit-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--green);}
+.wc26-highlight{background:var(--card2);border:1px solid var(--border);border-top:2px solid var(--gold);border-radius:4px;padding:14px 18px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.flex-row{display:flex;gap:14px;}
+.flex-col{display:flex;flex-direction:column;gap:14px;}
+.title-block{display:flex;align-items:stretch;gap:13px;margin-bottom:20px;}
+.slide-title{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:800;color:var(--white);line-height:1.05;}
+.slide-title .hi{color:var(--green);}
+.lang-ko .slide-title{font-family:'Noto Sans KR','Barlow Condensed',sans-serif;font-size:30px;font-weight:900;}
+
+/* ── COVER ── */
+.cover-left{position:absolute;left:0;top:0;bottom:0;width:270px;background:linear-gradient(180deg,var(--card2) 0%,rgba(0,230,118,.05) 100%);border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center;padding:48px 32px;z-index:1;}
+.cover-right{position:absolute;left:270px;right:0;top:0;bottom:0;padding:48px 46px;z-index:1;display:flex;flex-direction:column;justify-content:center;}
+.cover-watermark{position:absolute;right:-50px;bottom:-70px;font-family:'Barlow Condensed',sans-serif;font-size:200px;font-weight:900;color:rgba(13,24,48,1);letter-spacing:-8px;user-select:none;pointer-events:none;white-space:nowrap;z-index:0;}
+.cover-logo{font-family:'Barlow Condensed',sans-serif;font-size:68px;font-weight:900;color:var(--white);letter-spacing:-1px;line-height:1;}
+.cover-logo span{color:var(--green);}
+.cover-sub{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:6px;color:var(--green);margin-top:5px;}
+.cover-tagline{font-size:12px;color:var(--gold);font-style:italic;letter-spacing:2px;margin-top:18px;}
+.cover-bullet{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--light);}
+.cover-bullet::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.seed-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#000;padding:7px 14px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;width:fit-content;box-shadow:0 4px 20px rgba(0,230,118,.3);}
+.poly-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(123,63,228,.18);color:var(--poly);border:1px solid rgba(123,63,228,.4);padding:6px 12px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;width:fit-content;}
+.mini-stat{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:12px;}
+.mini-stat-val{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;color:var(--green);}
+.mini-stat-label{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* ── ROI SLIDE ── */
+.roi-scenario{background:var(--card);border:1px solid var(--border);border-radius:4px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.4);transition:transform .2s;}
+.roi-scenario:hover{transform:translateY(-3px);}
+.roi-scenario-header{padding:14px 16px;display:flex;align-items:center;gap:10px;}
+.roi-scenario-header .ico{font-size:22px;}
+.roi-badge{display:inline-block;padding:3px 10px;border-radius:2px;font-size:9px;font-weight:700;letter-spacing:3px;font-family:'Barlow Condensed',sans-serif;margin-bottom:3px;}
+.roi-badge.bear{background:rgba(255,82,82,.15);color:var(--red);border:1px solid rgba(255,82,82,.3);}
+.roi-badge.base{background:rgba(30,136,229,.15);color:var(--blue);border:1px solid rgba(30,136,229,.3);}
+.roi-badge.bull{background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.3);}
+.roi-price{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;line-height:1;}
+.roi-mcap{font-size:11px;color:var(--muted);margin-top:2px;}
+.roi-table{width:100%;border-collapse:collapse;}
+.roi-table th{background:rgba(255,255,255,.03);font-size:10px;font-weight:700;letter-spacing:1px;padding:7px 12px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;border-bottom:1px solid var(--border);text-align:left;}
+.roi-table td{padding:7px 12px;font-size:12px;color:var(--light);border-bottom:1px solid rgba(22,38,64,.6);}
+.roi-table tr:last-child td{border-bottom:none;}
+.roi-mult{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;}
+.roi-mult.bear{color:var(--red);}
+.roi-mult.base{color:var(--blue);}
+.roi-mult.bull{color:var(--green);}
+.roi-note{font-size:9.5px;color:var(--muted);font-style:italic;padding:8px 12px;background:rgba(0,0,0,.2);border-top:1px solid var(--border);}
+
+/* ── LANG SWITCHER ── */
+#lang-switcher{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);
+  display:flex;gap:4px;z-index:200;
+  background:rgba(12,24,41,.9);border:1px solid var(--border);
+  border-radius:4px;padding:4px;backdrop-filter:blur(8px);
+}
+.lang-btn{
+  padding:5px 12px;border-radius:3px;border:none;
+  font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;
+  background:transparent;color:var(--muted);transition:all .2s;
+}
+.lang-btn:hover{color:var(--light);}
+.lang-btn.active{background:var(--green);color:#000;}
+
+/* NAV */
+#nav{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:100;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted);cursor:pointer;transition:all .3s;border:none;padding:0;}
+.dot.active{background:var(--green);transform:scale(1.3);}
+.dot:hover{background:var(--light);}
+#prev,#next{position:fixed;top:50%;transform:translateY(-50%);background:rgba(12,24,41,.8);border:1px solid var(--border);color:var(--light);font-size:20px;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;transition:all .2s;backdrop-filter:blur(8px);}
+#prev{left:14px;}#next{right:14px;}
+#prev:hover,#next:hover{background:var(--green);color:#000;border-color:var(--green);}
+#counter{position:fixed;top:16px;right:18px;z-index:100;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);}
+#counter span{color:var(--green);}
+#progress{position:fixed;bottom:0;left:0;height:2px;background:var(--green);z-index:100;transition:width .4s ease;}
+.slide-footer{position:absolute;bottom:0;left:0;right:0;height:30px;background:var(--card);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:5;}
+.footer-txt{font-size:9px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.footer-link{font-size:9px;color:var(--green);text-decoration:none;font-family:'JetBrains Mono',monospace;}
+.footer-link:hover{text-decoration:underline;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.slide.active .anim1{animation:fadeUp .45s ease both;}
+.slide.active .anim2{animation:fadeUp .45s .1s ease both;}
+.slide.active .anim3{animation:fadeUp .45s .18s ease both;}
+.slide.active .anim4{animation:fadeUp .45s .27s ease both;}
+.slide.active .anim5{animation:fadeUp .45s .35s ease both;}
+.slide.active .anim6{animation:fadeUp .45s .43s ease both;}
+</style>
+</head>
+<body>
+
+<!-- ────────────────────────────────────────────
+  LANG SWITCHER
+──────────────────────────────────────────── -->
+<div id="lang-switcher">
+  <button class="lang-btn active" onclick="setLang('en')">🇬🇧 EN</button>
+  <button class="lang-btn" onclick="setLang('vi')">🇻🇳 VI</button>
+  <button class="lang-btn" onclick="setLang('ko')">🇰🇷 KO</button>
+</div>
+
+<div id="deck">
+
+<!-- ══════════════════════════════════════════
+  SLIDE 1 — COVER
+══════════════════════════════════════════ -->
+<div class="slide active" id="s1">
+  <div class="stars"></div>
+  <div class="topbar multi"></div>
+  <div class="cover-watermark">ARENA</div>
+  <div class="content">
+    <div class="cover-left z1 anim1">
+      <div class="cover-logo">WC<span>26</span></div>
+      <div class="cover-sub">NFT FANTASY</div>
+      <div class="cover-tagline">⚡ THE ULTIMATE ARENA</div>
+      <div style="font-size:11.5px;color:var(--muted);margin-top:10px;" data-i18n="cover_tagline2">5 billion viewers · 104 matches · 48 nations</div>
+      <div style="margin-top:22px;display:flex;flex-direction:column;gap:8px;">
+        <div class="cover-bullet" data-i18n="cover_b1">Interactive on-chain sports entertainment</div>
+        <div class="cover-bullet" data-i18n="cover_b2">Built on Polygon — World Cup 2026 &amp; beyond</div>
+        <div class="cover-bullet" data-i18n="cover_b3">DAO-governed · AI-operated (PIQUE)</div>
+        <div class="cover-bullet" data-i18n="cover_b4">Fan-owned economy</div>
+      </div>
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:7px;">
+        <div class="seed-badge">🌱 <span data-i18n="seed_open">SEED ROUND OPEN</span></div>
+        <div class="poly-badge">⬡ POLYGON NETWORK</div>
+      </div>
+      <div style="margin-top:auto;display:flex;flex-direction:column;gap:6px;padding-top:16px;">
+        <a href="https://wc26nft.info" target="_blank" class="footer-link" style="font-size:10px;">🌐 wc26nft.info</a>
+        <a href="https://wc26nft.info/wc26_whitelist_vanguard1.html" target="_blank" class="footer-link" style="font-size:10px;" data-i18n="buy_seed_link">🌱 Buy Seed Round</a>
+        <a href="https://t.me/wc26viral_bot" target="_blank" class="footer-link" style="font-size:10px;" data-i18n="play_now_link">⚡ Telegram Mini Game</a>
+        <div style="font-size:9px;color:var(--muted);margin-top:4px;">White Paper v1.5 Final · Feb 2026</div>
+      </div>
+    </div>
+    <div class="cover-right z1">
+      <div class="anim2" style="margin-bottom:6px;"><span class="section-tag" data-i18n="cover_section">WORLD CUP 2026 · ON-CHAIN PARTICIPATION ECONOMY</span></div>
+      <div class="anim3" style="font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:900;color:var(--white);line-height:1.1;max-width:440px;" data-i18n="cover_headline">Every On-Pitch Moment Becomes Structured Participation</div>
+      <div class="anim4" style="margin-top:14px;font-size:13.5px;color:var(--light);max-width:390px;line-height:1.7;" data-i18n="cover_desc">WC26 NFT Fantasy transforms fans from passive spectators into active participants through a real-time, event-driven on-chain economy powered by football data.</div>
+      <div class="anim5" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;max-width:390px;">
+        <div class="mini-stat"><div class="mini-stat-val">200M</div><div class="mini-stat-label" data-i18n="ms1">WC26 Token Fixed Supply</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" style="color:var(--gold);">16</div><div class="mini-stat-label" data-i18n="ms2">Stadium NFTs · Venue-limited</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" style="color:var(--blue);">6</div><div class="mini-stat-label" data-i18n="ms3">Arena Participation Modules</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" style="color:var(--poly);">$0.0025</div><div class="mini-stat-label" data-i18n="ms4">Seed Entry Price / WC26</div></div>
+      </div>
+      <div class="anim6" style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="https://wc26nft.info" target="_blank" class="btn green" style="font-size:12px;padding:10px 16px;" data-i18n="btn_website">🌐 Visit Website</a>
+        <a href="https://wc26nft.info/wc26_whitelist_vanguard1.html" target="_blank" class="btn" style="background:transparent;border:1px solid var(--green);color:var(--green);font-size:12px;padding:10px 16px;" data-i18n="btn_seed">🌱 Buy Seed Round</a>
+        <a href="https://t.me/wc26viral_bot" target="_blank" class="btn" style="background:transparent;border:1px solid var(--gold);color:var(--gold);font-size:12px;padding:10px 16px;" data-i18n="btn_play">⚡ Play Now</a>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="footer-txt">WC26 NFT Fantasy · Pitch Deck · 2026</span><a href="https://wc26nft.info" target="_blank" class="footer-link">wc26nft.info</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  SLIDE 2 — OPPORTUNITY
+══════════════════════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="stars"></div><div class="topbar gold"></div>
+  <div class="content" style="padding-bottom:44px;">
+    <div class="anim1"><span class="section-tag gold" data-i18n="opp_section">THE OPPORTUNITY</span></div>
+    <div class="title-block anim2">
+      <div class="accent gold"></div>
+      <div class="slide-title" data-i18n="opp_title">Football Fans Deserve More Than a <span class="hi">Seat</span></div>
+    </div>
+    <div class="anim3" style="font-size:13.5px;color:var(--light);max-width:680px;margin-bottom:20px;line-height:1.7;">
+      <span data-i18n="opp_desc1">Most digital products still position fans as </span><strong style="color:var(--gold);" data-i18n="opp_spectators">spectators</strong><span data-i18n="opp_desc2">. WC26 NFT Fantasy transforms every on-pitch moment into structured, on-chain participation.</span>
+    </div>
+    <div class="grid3 anim4" style="margin-bottom:18px;">
+      <div class="stat-card green"><div class="stat-val" style="color:var(--green);">3.5B</div><div class="stat-label" data-i18n="stat1">Global Football Fans</div></div>
+      <div class="stat-card gold"><div class="stat-val" style="color:var(--gold);">5B</div><div class="stat-label" data-i18n="stat2">WC2026 Viewers (estimated)</div></div>
+      <div class="stat-card blue"><div class="stat-val" style="color:var(--blue);">400–500M</div><div class="stat-label" data-i18n="stat3">Football Fans on Telegram</div></div>
+    </div>
+    <div class="anim5" style="flex:1;display:flex;flex-direction:column;min-height:0;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:3px;color:var(--muted);margin-bottom:8px;font-family:'Barlow Condensed',sans-serif;" data-i18n="precedents_title">PROVEN PRECEDENTS — TELEGRAM MINI APPS</div>
+      <div class="card" style="padding:0;overflow:hidden;flex:1;">
+        <table class="data-table">
+          <thead><tr>
+            <th data-i18n="th_app">Mini App</th>
+            <th data-i18n="th_users">Users</th>
+            <th data-i18n="th_mechanic">Core Mechanics</th>
+            <th data-i18n="th_insight">Key Insight</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Hamster Kombat</td><td style="color:var(--green);font-weight:600;">150M+</td><td data-i18n="hk_mech">Upgrades, daily rewards</td><td data-i18n="hk_ins">Daily loops drove retention</td></tr>
+            <tr><td>Notcoin</td><td style="color:var(--green);font-weight:600;">35M+</td><td data-i18n="nc_mech">Points accumulation</td><td data-i18n="nc_ins">Low friction = viral growth</td></tr>
+            <tr><td>TapSwap</td><td style="color:var(--green);font-weight:600;">60M+</td><td data-i18n="ts_mech">Daily missions, progression</td><td data-i18n="ts_ins">Missions sustained engagement</td></tr>
+            <tr><td>Blum</td><td style="color:var(--green);font-weight:600;">50M+</td><td data-i18n="bl_mech">Community rewards</td><td data-i18n="bl_ins">Community challenges scale</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="footer-txt">WC26 NFT Fantasy · Pitch Deck · 2026</span><a href="https://wc26nft.info" target="_blank" class="footer-link">wc26nft.info</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  SLIDE 3 — 6 MODULES
+══════════════════════════════════════════ -->
+<div class="slide" id="s3">
+  <div class="stars"></div><div class="topbar"></div>
+  <div class="content" style="padding-bottom:44px;">
+    <div class="anim1"><span class="section-tag" data-i18n="sol_section">THE SOLUTION</span></div>
+    <div class="title-block anim2">
+      <div class="accent"></div>
+      <div class="slide-title">WC26 Arena — 6 <span class="hi" data-i18n="sol_title_hi">Participation Modules</span></div>
+    </div>
+    <div class="anim3" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:14px;">
+      <div style="background:var(--blue);padding:6px;border-radius:3px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:#fff;" data-i18n="before_match">BEFORE MATCHES</div>
+      <div style="background:var(--green);padding:6px;border-radius:3px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:#000;" data-i18n="during_match">DURING MATCHES</div>
+      <div style="background:var(--gold);padding:6px;border-radius:3px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:#000;" data-i18n="after_match">AFTER MATCHES</div>
+    </div>
+    <div class="grid3 anim4" style="flex:1;min-height:0;">
+      <div class="mod-card c-blue">
+        <div class="mod-code" style="color:var(--blue);">F1 · ORACLE CHALLENGE</div>
+        <div class="mod-title" data-i18n="f1_title">Prediction Arena</div>
+        <div class="mod-desc" data-i18n="f1_desc">Predict match outcomes before kick-off. VIBE CARDS (outcome) + ORACLE CARDS (exact score). Rewards scale with accuracy.</div>
+      </div>
+      <div class="mod-card c-green">
+        <div class="mod-code" style="color:var(--green);">F2 · SQUAD FANTASY</div>
+        <div class="mod-title" data-i18n="f2_title">Tactical Management</div>
+        <div class="mod-desc" data-i18n="f2_desc">Assemble lineups from Player NFTs. Outcomes via GhostTime real-pitch scoring engine. Top 10 squads win token rewards.</div>
+      </div>
+      <div class="mod-card c-gold">
+        <div class="mod-code" style="color:var(--gold);">F3 · GLOBAL JURY</div>
+        <div class="mod-title" data-i18n="f3_title">Community Verdict</div>
+        <div class="mod-desc" data-i18n="f3_desc">MIP (Most Impactful Player) and WPP (Worst Performance) voting. Community awards ±20 SP in 24h after final whistle.</div>
+      </div>
+      <div class="mod-card c-orange">
+        <div class="mod-code" style="color:var(--orange);">F4 · PRIMARY NFT DROPS</div>
+        <div class="mod-title" data-i18n="f4_title">Living History</div>
+        <div class="mod-desc" data-i18n="f4_desc">Match-Day Souvenirs, Venue-Limited Player NFTs, "The Moment" Flash Drops. Each drop captures tournament history.</div>
+      </div>
+      <div class="mod-card c-poly">
+        <div class="mod-code" style="color:var(--poly);">F5 · CREATOR HUB</div>
+        <div class="mod-title" data-i18n="f5_title">Fan Expression</div>
+        <div class="mod-desc" data-i18n="f5_desc">Fans create, mint, and share original content tied to matches. PIQUE AI validation. Creator-controlled pricing.</div>
+      </div>
+      <div class="mod-card c-teal">
+        <div class="mod-code" style="color:var(--teal);">F6 · TRANSFER MARKET</div>
+        <div class="mod-title" data-i18n="f6_title">24/7 P2P Marketplace</div>
+        <div class="mod-desc" data-i18n="f6_desc">Continuous non-custodial marketplace for WC26, Player NFTs (5 tiers), Stadium NFTs, MEME Moments. 10% protocol burn.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="footer-txt">WC26 NFT Fantasy · Pitch Deck · 2026</span><a href="https://wc26nft.info" target="_blank" class="footer-link">wc26nft.info</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  SLIDE 4 — DIGITAL ASSETS
+══════════════════════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="stars"></div><div class="topbar gold"></div>
+  <div class="content" style="padding-bottom:44px;">
+    <div class="anim1"><span class="section-tag gold" data-i18n="assets_section">DIGITAL ASSETS</span></div>
+    <div class="title-block anim2">
+      <div class="accent gold"></div>
+      <div class="slide-title" data-i18n="assets_title">Three Pillars of the <span class="hi">WC26 Ecosystem</span></div>
+    </div>
+    <div class="flex-row anim3" style="flex:1;min-height:0;">
+      <div class="pillar poly">
+        <div class="pillar-icon poly">⬡</div>
+        <div class="pillar-title" style="color:var(--poly);">WC26 Token</div>
+        <div class="badge poly">200,000,000</div>
+        <div class="pillar-note" data-i18n="p1_note">Fixed supply · ERC-20 · No inflation</div>
+        <ul class="pillar-list">
+          <li data-i18n="p1_1">Polygon network (Chain ID 137)</li>
+          <li data-i18n="p1_2">Participation access across all modules</li>
+          <li data-i18n="p1_3">Governance commitment unit</li>
+          <li data-i18n="p1_4">Staking × duration = voting power</li>
+          <li data-i18n="p1_5">Operational sustainability</li>
+        </ul>
+      </div>
+      <div class="pillar green">
+        <div class="pillar-icon green">⚽</div>
+        <div class="pillar-title" style="color:var(--green);">Player NFTs</div>
+        <div class="badge green" data-i18n="p2_badge">5 TIERS</div>
+        <div class="pillar-note">Rising · Elite · Legacy · Mystery Box</div>
+        <ul class="pillar-list">
+          <li data-i18n="p2_1">Real on-pitch performance data</li>
+          <li>GhostTime scoring engine</li>
+          <li data-i18n="p2_3">Carries history across all matches</li>
+          <li data-i18n="p2_4">Primary anchor for Squad Fantasy</li>
+          <li data-i18n="p2_5">Venue-limited exclusive drops</li>
+        </ul>
+      </div>
+      <div class="pillar gold">
+        <div class="pillar-icon gold">🏟</div>
+        <div class="pillar-title" style="color:var(--gold);">Stadium NFTs</div>
+        <div class="badge gold">16 NFTs</div>
+        <div class="pillar-note" data-i18n="p3_note">Venue-limited · Auction-only access</div>
+        <ul class="pillar-list">
+          <li data-i18n="p3_1">Tied to real World Cup venues</li>
+          <li data-i18n="p3_2">Receives 5% of all module fees</li>
+          <li data-i18n="p3_3">Digital venue ownership rights</li>
+          <li data-i18n="p3_4">Infrastructure asset class</li>
+          <li data-i18n="p3_5">Long-term ecosystem anchors</li>
+        </ul>
+      </div>
+    </div>
+    <div class="anim4" style="margin-top:14px;background:rgba(123,63,228,.08);border:1px solid rgba(123,63,228,.25);border-radius:4px;padding:9px 18px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--poly);">
+      ⬡ &nbsp; ALL ASSETS · POLYGON · ERC-20 / ERC-721 · CHAIN ID 137 &nbsp; ⬡
+    </div>
+  </div>
+  <div class="slide-footer"><span class="footer-txt">WC26 NFT Fantasy · Pitch Deck · 2026</span><a href="https://wc26nft.info" target="_blank" class="footer-link">wc26nft.info</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  SLIDE 5 — TOKENOMICS
+══════════════════════════════════════════ -->
+<div class="slide" id="s5">
+  <div class="stars"></div><div class="topbar"></div>
+  <div class="content" style="padding-bottom:44px;">
+    <div class="anim1"><span class="section-tag" data-i18n="tok_section">TOKENOMICS</span></div>
+    <div class="title-block anim2">
+      <div class="accent"></div>
+      <div class="slide-title">200,000,000 WC26 — <span class="hi" data-i18n="tok_title_hi">Fixed Supply, No Inflation</span></div>
+    </div>
+    <div class="grid2 anim3" style="flex:1;min-height:0;margin-bottom:12px;">
+      <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="background:rgba(0,230,118,.06);padding:10px 14px;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;letter-spacing:3px;color:var(--green);font-family:'Barlow Condensed',sans-serif;" data-i18n="alloc_title">FULL ALLOCATION BREAKDOWN</div>
+        <table class="data-table" style="flex:1;">
+          <thead><tr><th data-i18n="col_cat">Category</th><th>%</th><th data-i18n="col_tokens">Tokens</th></tr></thead>
+          <tbody>
+            <tr style="background:rgba(30,136,229,.05);"><td colspan="3" style="color:var(--blue);font-weight:700;font-size:10px;letter-spacing:2px;padding:5px 12px;" data-i18n="grp_fundraising">FUNDRAISING — 36.5%</td></tr>
+            <tr><td data-i18n="vg1_label">Vanguard 1 (Friends &amp; Family)</td><td style="color:var(--green);">5%</td><td class="mono">10,000,000</td></tr>
+            <tr><td data-i18n="vg2_label">Vanguard 2 (Early Builders)</td><td style="color:var(--green);">5%</td><td class="mono">10,000,000</td></tr>
+            <tr><td data-i18n="vg3_label">Vanguard 3 (KOLs / Strategic)</td><td style="color:var(--green);">5%</td><td class="mono">10,000,000</td></tr>
+            <tr><td data-i18n="comm_sale_label">Community Sale (Whitelist/FCFS/Lottery)</td><td style="color:var(--green);">21.5%</td><td class="mono">43,000,000</td></tr>
+            <tr style="background:rgba(0,230,118,.04);"><td colspan="3" style="color:var(--green);font-weight:700;font-size:10px;letter-spacing:2px;padding:5px 12px;" data-i18n="grp_ecosystem">ECOSYSTEM — 36.0%</td></tr>
+            <tr><td data-i18n="game_rewards_label">Game Rewards (WC26–EURO2028)</td><td style="color:var(--green);">30%</td><td class="mono">60,000,000</td></tr>
+            <tr><td data-i18n="activity_label">Activity &amp; Campaigns (Airdrop)</td><td style="color:var(--green);">6%</td><td class="mono">12,000,000</td></tr>
+            <tr style="background:rgba(255,214,0,.03);"><td colspan="3" style="color:var(--gold);font-weight:700;font-size:10px;letter-spacing:2px;padding:5px 12px;" data-i18n="grp_team">TEAM &amp; OPS — 27.5%</td></tr>
+            <tr><td data-i18n="team_label">Team &amp; Advisors</td><td style="color:var(--gold);">12.5%</td><td class="mono">25,000,000</td></tr>
+            <tr><td data-i18n="lp_label">Liquidity Pool &amp; Buffer</td><td style="color:var(--gold);">10%</td><td class="mono">20,000,000</td></tr>
+            <tr><td data-i18n="treasury_label">Treasury (Dev, OPS, Reserve)</td><td style="color:var(--gold);">5%</td><td class="mono">10,000,000</td></tr>
+            <tr class="total"><td data-i18n="total_supply">TOTAL SUPPLY</td><td>100%</td><td class="mono">200,000,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px;">
+        <div class="card" style="padding:16px 18px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:3px;color:var(--muted);margin-bottom:12px;font-family:'Barlow Condensed',sans-serif;" data-i18n="visual_alloc">VISUAL ALLOCATION</div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px;"><span style="color:var(--blue);" data-i18n="fundraising_lbl">Fundraising</span><span style="color:var(--blue);font-weight:700;">36.5%</span></div>
+              <div style="background:var(--border);border-radius:2px;height:7px;"><div style="background:var(--blue);border-radius:2px;height:7px;width:36.5%;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px;"><span style="color:var(--green);" data-i18n="ecosystem_lbl">Ecosystem / Game Rewards</span><span style="color:var(--green);font-weight:700;">36.0%</span></div>
+              <div style="background:var(--border);border-radius:2px;height:7px;"><div style="background:var(--green);border-radius:2px;height:7px;width:36%;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px;"><span style="color:var(--gold);" data-i18n="teamops_lbl">Team &amp; Ops</span><span style="color:var(--gold);font-weight:700;">27.5%</span></div>
+              <div style="background:var(--border);border-radius:2px;height:7px;"><div style="background:var(--gold);border-radius:2px;height:7px;width:27.5%;"></div></div>
+            </div>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:10.5px;color:var(--muted);" data-i18n="vesting_note">Vesting: 20% TGE cliff · 90-day cliff · 240-day linear unlock</div>
+        </div>
+        <div class="card" style="padding:14px 16px;flex:1;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gold);margin-bottom:10px;font-family:'Barlow Condensed',sans-serif;" data-i18n="emission_title">WC2026 EMISSION — 15,000,000 WC26</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+            <div class="emit-card"><div style="font-size:10px;font-weight:700;color:var(--white);" data-i18n="group_stage">Group Stage</div><div style="font-size:9px;color:var(--muted);" data-i18n="72_matches">72 matches</div><div style="font-size:13px;font-weight:700;color:var(--green);margin-top:2px;" class="mono">100K / match</div></div>
+            <div class="emit-card"><div style="font-size:10px;font-weight:700;color:var(--white);" data-i18n="r32">Round of 32</div><div style="font-size:9px;color:var(--muted);" data-i18n="16_matches">16 matches</div><div style="font-size:13px;font-weight:700;color:var(--green);margin-top:2px;" class="mono">150K / match</div></div>
+            <div class="emit-card"><div style="font-size:10px;font-weight:700;color:var(--white);" data-i18n="semis">Semi-finals</div><div style="font-size:9px;color:var(--muted);" data-i18n="2_matches">2 matches</div><div style="font-size:13px;font-weight:700;color:var(--gold);margin-top:2px;" class="mono">400K / match</div></div>
+            <div class="emit-card" style="border:1px solid rgba(255,214,0,.3);"><div style="font-size:10px;font-weight:700;color:var(--gold);" data-i18n="the_final">THE FINAL 🏆</div><div style="font-size:9px;color:var(--muted);" data-i18n="1_match">1 match</div><div style="font-size:13px;font-weight:700;color:var(--gold);margin-top:2px;" class="mono">1,000,000 WC26</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="footer-txt">WC26 NFT Fantasy · Pitch Deck · 2026</span><a href="https://wc26nft.info" target="_blank" class="footer-link">wc26nft.info</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  SLIDE 6 — SEED ROUND
+══════════════════════════════════════════ -->
+<div class="slide" id="s6">
+  <div class="stars"></div><div class="topbar gold"></div>
+  <div class="content" style="padding-bottom:44px;">
+    <div class="anim1"><span class="section-tag gold" data-i18n="seed_section">SEED ROUND — VANGUARD PROGRAM</span></div>
+    <div class="title-block anim2">
+      <div class="accent gold"></div>
+      <div class="slide-title" data-i18n="seed_title">3 Tiers — Early Believers, Builders &amp; <span class="hi">Strategic Partners</span></div>
+    </div>
+    <div class="flex-row anim3" style="margin-bottom:14px;">
+      <div class="vg-card green">
+        <div class="vg-badge green" data-i18n="vg1_badge">EARLIEST · R.1</div>
+        <div style="font-size:13px;font-weight:700;color:var(--white);margin-top:5px;">VANGUARD 1 · The Origin</div>
+        <div style="font-size:11px;color:var(--muted);font-style:italic;" data-i18n="vg1_sub">Friends &amp; Family Round</div>
+        <div class="vg-price green">$0.0025</div>
+        <div style="font-size:11px;color:var(--muted);" data-i18n="per_token">per WC26 token</div>
+        <div style="font-size:12px;color:var(--light);" data-i18n="vg1_raise">Raise target: <strong style="color:var(--green);">$25,000</strong></div>
+        <div style="font-size:12px;color:var(--light);">Tokens: <strong style="color:var(--white);">10,000,000 WC26 (5%)</strong></div>
+        <div style="font-size:10.5px;color:var(--muted);padding-top:7px;border-top:1px solid var(--border);" data-i18n="vesting_short">20% TGE · 90-day cliff · 240-day linear</div>
+        <a href="https://wc26nft.info/wc26_whitelist_vanguard1.html" target="_blank" class="btn green" style="margin-top:auto;font-size:11px;padding:9px;" data-i18n="buy_vg1">🌱 Buy Vanguard 1</a>
+      </div>
+      <div class="vg-card blue">
+        <div class="vg-badge blue" data-i18n="vg2_badge">ACTIVE · R.2</div>
+        <div style="font-size:13px;font-weight:700;color:var(--white);margin-top:5px;">VANGUARD 2 · The Pathfinders</div>
+        <div style="font-size:11px;color:var(--muted);font-style:italic;" data-i18n="vg2_sub">Early Believers &amp; Active Builders</div>
+        <div class="vg-price blue">$0.0045</div>
+        <div style="font-size:11px;color:var(--muted);" data-i18n="per_token">per WC26 token</div>
+        <div style="font-size:12px;color:var(--light);" data-i18n="vg2_raise">Raise target: <strong style="color:var(--blue);">$45,000</strong></div>
+        <div style="font-size:12px;color:var(--light);">Tokens: <strong style="color:var(--white);">10,000,000 WC26 (5%)</strong></div>
+        <div style="font-size:10.5px;color:var(--muted);padding-top:7px;border-top:1px solid var(--border);" data-i18n="vesting_short">20% TGE · 90-day cliff · 240-day linear</div>
+        <a href="https://wc26nft.info/wc26_whitelist_vanguard1.html" target="_blank" class="btn blue" style="margin-top:auto;font-size:11px;padding:9px;" data-i18n="join_vg2">🌱 Join Vanguard 2</a>
+      </div>
+      <div class="vg-card gold">
+        <div class="vg-badge gold" data-i18n="vg3_badge">STRATEGIC · R.3</div>
+        <div style="font-size:13px;font-weight:700;color:var(--white);margin-top:5px;">VANGUARD 3 · The Guardians</div>
+        <div style="font-size:11px;color:var(--muted);font-style:italic;" data-i18n="vg3_sub">Strategic Partners &amp; KOLs</div>
+        <div class="vg-price gold">$0.0065</div>
+        <div style="font-size:11px;color:var(--muted);" data-i18n="per_token">per WC26 token</div>
+        <div style="font-size:12px;color:var(--light);" data-i18n="vg3_raise">Raise target: <strong style="color:var(--gold);">$65,000</strong></div>
+        <div style="font-size:12px;color:var(--light);">Tokens: <strong style="color:var(--white);">10,000,000 WC26 (5%)</strong></div>
+        <div style="font-size:10.5px;color:var(--muted);padding-top:7px;border-top:1px solid var(--border);" data-i18n="vesting_short">20% TGE · 90-day cliff · 240-day linear</div>
+        <a href="https://wc26nft.info/wc26_whitelist_vanguard1.html" target="_blank" class="btn gold" style="margin-top:auto;font-size:11px;padding:9px;" data-i18n="join_vg3">🌱 Join Vanguard 3</a>
+      </div>
+    </div>
+    <div class="anim4 wc26-highlight" style="border-top:2px solid var(--poly);">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <div style="font-size:10px;letter-spacing:3px;color:var(--poly);font-weight:700;font-family:'Barlow Condensed',sans-serif;margin-bottom:3px;">COMMUNITY SALE — 43,000,000 WC26 · 21.5%</div>
+          <div style="font-size:13px;color:var(--light);">
+            <span data-i18n="cs_phase1">Phase 1 · Whitelist</span> <strong style="color:var(--white);">$0.0075</strong> &nbsp;·&nbsp;
+            <span data-i18n="cs_phase2">Phase 2 · Public FCFS</span> <strong style="color:var(--white);">$0.0085</strong> &nbsp;·&nbsp;
+            <span data-i18n="cs_phase3">Phase 3 · Lottery</span> <strong style="color:var(--white);">$0.0095</strong>
+          </div>
+        </div>
+        <a href="https://wc26nft.info/wc26_whitelist_vanguard1.html" target="_blank" class="btn" style="background:var(--poly);color:#fff;padding:9px 18px;font-size:12px;white-space:nowrap;" data-i18n="register_wl">Register Whitelist →</a>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="footer-txt">WC26 NFT Fantasy · Pitch Deck · 2026</span><a href="https://wc26nft.info/wc26_whitelist_vanguard1.html" target="_blank" class="footer-link">🌱 wc26nft.info/wc26_whitelist_vanguard1.html</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  SLIDE 7 — ROI & PRICE SCENARIOS  ← NEW
+══════════════════════════════════════════ -->
+<div class="slide" id="s7">
+  <div class="stars"></div><div class="topbar red"></div>
+  <div class="content" style="padding-bottom:44px;">
+    <div class="anim1"><span class="section-tag red" data-i18n="roi_section">INVESTOR ROI — PRICE SCENARIOS</span></div>
+    <div class="title-block anim2">
+      <div class="accent red"></div>
+      <div class="slide-title" data-i18n="roi_title">Price Targets &amp; <span class="hi">ROI Projections</span> by Scenario</div>
+    </div>
+
+    <!-- 3 scenario cards -->
+    <div class="grid3 anim3" style="margin-bottom:14px;">
+
+      <!-- BEAR -->
+      <div class="roi-scenario">
+        <div class="roi-scenario-header" style="background:rgba(255,82,82,.06);border-bottom:1px solid var(--border);">
+          <div class="ico">🐻</div>
+          <div>
+            <div class="roi-badge bear" data-i18n="bear_badge">BEAR CASE</div>
+            <div class="roi-price" style="color:var(--red);">$0.01</div>
+            <div class="roi-mcap" data-i18n="bear_mcap">FDV: ~$2M · Low adoption</div>
+          </div>
+        </div>
+        <table class="roi-table">
+          <thead><tr><th data-i18n="entry_price">Entry Price</th><th data-i18n="roi_mult">ROI</th><th data-i18n="per_10k">Per $10K invest</th></tr></thead>
+          <tbody>
+            <tr><td>Vanguard 1 · $0.0025</td><td><span class="roi-mult bear">4×</span></td><td style="color:var(--red);">$40,000</td></tr>
+            <tr><td>Vanguard 2 · $0.0045</td><td><span class="roi-mult bear">2.2×</span></td><td style="color:var(--red);">$22,200</td></tr>
+            <tr><td>Vanguard 3 · $0.0065</td><td><span class="roi-mult bear">1.5×</span></td><td style="color:var(--red);">$15,400</td></tr>
+            <tr><td>Community · $0.0085</td><td><span class="roi-mult bear">1.2×</span></td><td style="color:var(--red);">$11,800</td></tr>
+          </tbody>
+        </table>
+        <div class="roi-note" data-i18n="bear_note">Conservative: limited WC2026 traction, early exit conditions</div>
+      </div>
+
+      <!-- BASE -->
+      <div class="roi-scenario" style="border-color:rgba(30,136,229,.3);">
+        <div class="roi-scenario-header" style="background:rgba(30,136,229,.07);border-bottom:1px solid var(--border);">
+          <div class="ico">📊</div>
+          <div>
+            <div class="roi-badge base" data-i18n="base_badge">BASE CASE</div>
+            <div class="roi-price" style="color:var(--blue);">$0.05</div>
+            <div class="roi-mcap" data-i18n="base_mcap">FDV: ~$10M · Successful launch</div>
+          </div>
+        </div>
+        <table class="roi-table">
+          <thead><tr><th data-i18n="entry_price">Entry Price</th><th data-i18n="roi_mult">ROI</th><th data-i18n="per_10k">Per $10K invest</th></tr></thead>
+          <tbody>
+            <tr><td>Vanguard 1 · $0.0025</td><td><span class="roi-mult base">20×</span></td><td style="color:var(--blue);">$200,000</td></tr>
+            <tr><td>Vanguard 2 · $0.0045</td><td><span class="roi-mult base">11×</span></td><td style="color:var(--blue);">$111,000</td></tr>
+            <tr><td>Vanguard 3 · $0.0065</td><td><span class="roi-mult base">7.7×</span></td><td style="color:var(--blue);">$76,900</td></tr>
+            <tr><td>Community · $0.0085</td><td><span class="roi-mult base">5.9×</span></td><td style="color:var(--blue);">$58,800</td></tr>
+          </tbody>
+        </table>
+        <div class="roi-note" data-i18n="base_note">Base: active WC2026 engagement, 100K+ monthly users</div>
+      </div>
+
+      <!-- BULL -->
+      <div class="roi-scenario" style="border-color:rgba(0,230,118,.3);">
+        <div class="roi-scenario-header" style="background:rgba(0,230,118,.06);border-bottom:1px solid var(--border);">
+          <div class="ico">🚀</div>
+          <div>
+            <div class="roi-badge bull" data-i18n="bull_badge">BULL CASE</div>
+            <div class="roi-price" style="color:var(--green);">$0.20</div>
+            <div class="roi-mcap" data-i18n="bull_mcap">FDV: ~$40M · Viral growth</div>
+          </div>
+        </div>
+        <table class="roi-table">
+          <thead><tr><th data-i18n="entry_price">Entry Price</th><th data-i18n="roi_mult">ROI</th><th data-i18n="per_10k">Per $10K invest</th></tr></thead>
+          <tbody>
+            <tr><td>Vanguard 1 · $0.0025</td><td><span class="roi-mult bull">80×</span></td><td style="color:var(--green);">$800,000</td></tr>
+            <tr><td>Vanguard 2 · $0.0045</td><td><span class="roi-mult bull">44×</span></td><td style="color:var(--green);">$444,000</td></tr>
+            <tr><td>Vanguard 3 · $0.0065</td><td><span class="roi-mult bull">30×</span></td><td style="color:var(--green);">$307,700</td></tr>
+            <tr><td>Community · $0.0085</td><td><span class="roi-mult bull">23.5×</span></td><td style="color:var(--green);">$235,300</td></tr>
+          </tbody>
+        </table>
+        <div class="roi-note" data-i18n="bull_note">Bull: viral WC2026 adoption, comparable to Sorare / NBA Top Shot trajectory</div>
+      </div>
+    </div>
+
+    <!-- Comp table + disclaimer -->
+    <div class="grid2 anim4" style="gap:12px;">
+      <div class="card" style="padding:12px 14px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gold);margin-bottom:8px;font-family:'Barlow Condensed',sans-serif;" data-i18n="comp_title">COMPARABLE PROJECTS (HISTORICAL)</div>
+        <table class="data-table" style="font-size:11px;">
+          <thead><tr><th data-i18n="comp_proj">Project</th><th data-i18n="comp_domain">Domain</th><th data-i18n="comp_peak">Peak Growth*</th></tr></thead>
+          <tbody>
+            <tr><td>Sorare</td><td data-i18n="fantasy_nft">Fantasy football NFT</td><td style="color:var(--green);font-weight:700;">20–40×</td></tr>
+            <tr><td>NBA Top Shot</td><td data-i18n="sports_nft">Sports NFT moments</td><td style="color:var(--green);font-weight:700;">30–50×</td></tr>
+            <tr><td>Axie Infinity</td><td data-i18n="game_eco">GameFi ecosystem</td><td style="color:var(--gold);font-weight:700;">150–200×</td></tr>
+            <tr><td>STEPN (GMT)</td><td data-i18n="gamified">Gamified activity</td><td style="color:var(--green);font-weight:700;">40–60×</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:9px;color:var(--muted);margin-top:8px;" data-i18n="comp_note">* Historical peak from earliest entry. Not a forecast or guarantee.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="card" style="padding:12px 14px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:3px;color:var(--muted);margin-bottom:8px;font-family:'Barlow Condensed',sans-serif;" data-i18n="fdv_title">FDV ASSUMPTION BASIS</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span data-i18n="fdv_bear">Bear — $2M FDV</span><span style="color:var(--red);">$0.01 / WC26</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span data-i18n="fdv_base">Base — $10M FDV</span><span style="color:var(--blue);">$0.05 / WC26</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span data-i18n="fdv_bull">Bull — $40M FDV</span><span style="color:var(--green);">$0.20 / WC26</span></div>
+            <div style="font-size:10px;color:var(--muted);margin-top:4px;padding-top:8px;border-top:1px solid var(--border);" data-i18n="fdv_note">Based on 200M total supply. Circulating at TGE ~10–15% of total.</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,82,82,.06);border:1px solid rgba(255,82,82,.2);border-radius:4px;padding:12px 14px;font-size:11px;color:var(--muted);line-height:1.6;" data-i18n="disclaimer">
+          ⚠ These projections are for illustrative purposes only. Cryptocurrency investments carry significant risk, including total loss of principal. WC26 NFT Fantasy is an entertainment platform — tokens are not financial instruments. Always do your own research (DYOR).
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="footer-txt">WC26 NFT Fantasy · Pitch Deck · 2026</span><a href="https://wc26nft.info/wc26_whitelist_vanguard1.html" target="_blank" class="footer-link">🌱 Buy Seed: wc26nft.info/wc26_whitelist_vanguard1.html</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  SLIDE 8 — ROADMAP
+══════════════════════════════════════════ -->
+<div class="slide" id="s8">
+  <div class="stars"></div><div class="topbar"></div>
+  <div class="content" style="padding-bottom:44px;">
+    <div class="anim1"><span class="section-tag" data-i18n="road_section">ROADMAP — 8 PHASES</span></div>
+    <div class="title-block anim2">
+      <div class="accent"></div>
+      <div class="slide-title" data-i18n="road_title">Trust Before Scale · <span class="hi">Participation</span> Before Monetization</div>
+    </div>
+    <div class="anim3" style="position:relative;display:flex;gap:6px;align-items:stretch;margin-bottom:14px;">
+      <div style="position:absolute;top:calc(50% - 1px);left:0;right:0;height:2px;background:var(--border);z-index:0;"></div>
+      <div class="phase-card" style="z-index:1;"><div style="background:var(--muted);width:9px;height:9px;border-radius:50%;margin-bottom:7px;"></div><div class="phase-num" style="color:var(--muted);">Ph.0</div><div class="phase-name" style="color:var(--muted);" data-i18n="ph0">Foundation</div><div class="phase-sub" data-i18n="ph0_sub">Legal · DAO-lite</div></div>
+      <div class="phase-card" style="z-index:1;border-color:rgba(0,230,118,.3);"><div style="background:var(--green);width:9px;height:9px;border-radius:50%;margin-bottom:7px;box-shadow:0 0 8px var(--green);"></div><div class="phase-num" style="color:var(--green);">Ph.1</div><div class="phase-name" style="color:var(--green);" data-i18n="ph1">Vanguard</div><div class="phase-sub" data-i18n="ph1_sub">Early community</div></div>
+      <div class="phase-card" style="z-index:1;"><div style="background:var(--blue);width:9px;height:9px;border-radius:50%;margin-bottom:7px;"></div><div class="phase-num" style="color:var(--blue);">Ph.2</div><div class="phase-name" data-i18n="ph2">Community Launch</div><div class="phase-sub" data-i18n="ph2_sub">Token sale · Liquidity</div></div>
+      <div class="phase-card" style="z-index:1;"><div style="background:var(--gold);width:9px;height:9px;border-radius:50%;margin-bottom:7px;"></div><div class="phase-num" style="color:var(--gold);">Ph.3</div><div class="phase-name" data-i18n="ph3">Arena Conquest</div><div class="phase-sub" data-i18n="ph3_sub">Stadium NFT Auction</div></div>
+      <div class="phase-card" style="z-index:1;"><div style="background:var(--orange);width:9px;height:9px;border-radius:50%;margin-bottom:7px;"></div><div class="phase-num" style="color:var(--orange);">Ph.4</div><div class="phase-name" data-i18n="ph4">Mystery Box</div><div class="phase-sub" data-i18n="ph4_sub">Player NFT drops</div></div>
+      <div class="phase-card" style="z-index:1;"><div style="background:var(--poly);width:9px;height:9px;border-radius:50%;margin-bottom:7px;"></div><div class="phase-num" style="color:var(--poly);">Ph.5</div><div class="phase-name" data-i18n="ph5">Transfer Market</div><div class="phase-sub" data-i18n="ph5_sub">P2P marketplace</div></div>
+      <div class="phase-card" style="z-index:1;"><div style="background:var(--teal);width:9px;height:9px;border-radius:50%;margin-bottom:7px;"></div><div class="phase-num" style="color:var(--teal);">Ph.6</div><div class="phase-name" data-i18n="ph6">MVP Games</div><div class="phase-sub">Oracle · Squad · Jury</div></div>
+      <div class="phase-card" style="z-index:1;border-color:rgba(255,214,0,.5);background:rgba(255,214,0,.04);"><div style="background:var(--gold);width:9px;height:9px;border-radius:50%;margin-bottom:7px;box-shadow:0 0 10px var(--gold);"></div><div class="phase-num" style="color:var(--gold);">Ph.7</div><div class="phase-name" style="color:var(--gold);" data-i18n="ph7">WC2026 Live 🏆</div><div class="phase-sub" data-i18n="ph7_sub">Full operations</div></div>
+    </div>
+    <div class="wc26-highlight anim4" style="margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="font-size:18px;">🏆</div>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--gold);letter-spacing:1px;" data-i18n="wc2026_live">WORLD CUP 2026 — LIVE OPERATIONS (Phase 7)</div>
+          <div style="font-size:12px;color:var(--light);" data-i18n="wc2026_desc">Live match events · Dynamic reward tuning · Limited drops · PIQUE AI real-time data · Global community scaling</div>
+        </div>
+      </div>
+    </div>
+    <div class="anim5 card" style="padding:0;overflow:hidden;flex:1;min-height:0;">
+      <table class="data-table">
+        <thead><tr><th data-i18n="th_phase">Phase</th><th data-i18n="th_objective">Primary Objective</th><th data-i18n="th_products">Core Products</th><th data-i18n="th_role">Strategic Role</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--green);font-weight:600;">Ph.1 · Vanguard</td><td data-i18n="r1_obj">Build trust &amp; early alignment</td><td data-i18n="r1_prod">Vanguard I–III · Vanguard Badge NFT</td><td data-i18n="r1_role">Secure long-term believers</td></tr>
+          <tr><td style="color:var(--blue);font-weight:600;">Ph.2 · Community Launch</td><td data-i18n="r2_obj">Enable broad token participation</td><td data-i18n="r2_prod">Public sale (Whitelist / FCFS / Lottery)</td><td data-i18n="r2_role">Open community transition</td></tr>
+          <tr><td style="color:var(--gold);font-weight:600;">Ph.3 · Arena Conquest</td><td data-i18n="r3_obj">Peak ownership layer</td><td data-i18n="r3_prod">Stadium NFT Auction (16 NFTs)</td><td data-i18n="r3_role">Long-term ecosystem anchors</td></tr>
+          <tr><td style="color:var(--teal);font-weight:600;">Ph.6 · MVP Games</td><td data-i18n="r6_obj">Volume &amp; engagement</td><td>Oracle Challenge · Squad Fantasy · Global Jury</td><td data-i18n="r6_role">Activate full participation layer</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="footer-txt">WC26 NFT Fantasy · Pitch Deck · 2026</span><a href="https://wc26nft.info" target="_blank" class="footer-link">wc26nft.info</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  SLIDE 9 — DAO & PIQUE
+══════════════════════════════════════════ -->
+<div class="slide" id="s9">
+  <div class="stars"></div><div class="topbar poly"></div>
+  <div class="content" style="padding-bottom:44px;">
+    <div class="anim1"><span class="section-tag poly" data-i18n="gov_section">GOVERNANCE &amp; AI</span></div>
+    <div class="title-block anim2">
+      <div class="accent poly"></div>
+      <div class="slide-title" data-i18n="gov_title">DAO-Governed · AI-Operated · <span style="color:var(--poly);">Community-Owned</span></div>
+    </div>
+    <div class="grid2 anim3" style="flex:1;min-height:0;">
+      <div class="card" style="padding:18px;display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:15px;font-weight:700;color:var(--green);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;" data-i18n="dao_title">🏛 DAO GOVERNANCE</div>
+        <div style="background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.15);border-radius:4px;padding:10px 12px;font-size:12.5px;color:var(--gold);font-style:italic;" data-i18n="dao_formula">Governance Power = Staked WC26 × Duration of Staking</div>
+        <div style="font-size:10px;letter-spacing:3px;color:var(--muted);font-weight:700;font-family:'Barlow Condensed',sans-serif;" data-i18n="dao_tiers_title">3-TIER GOVERNANCE STRUCTURE</div>
+        <div class="dao-tier entry"><div style="font-size:11px;font-weight:700;color:var(--muted);" data-i18n="entry_tier">ENTRY LEVEL</div><div style="font-size:11.5px;color:var(--light);margin-top:1px;" data-i18n="entry_desc">Observer · Signaling · Limited voting rights</div></div>
+        <div class="dao-tier committed"><div style="font-size:11px;font-weight:700;color:var(--blue);" data-i18n="committed_tier">COMMITTED CONTRIBUTORS</div><div style="font-size:11.5px;color:var(--light);margin-top:1px;" data-i18n="committed_desc">Operational proposals · Parameter adjustments</div></div>
+        <div class="dao-tier governor"><div style="font-size:11px;font-weight:700;color:var(--green);" data-i18n="governor_tier">GOVERNOR</div><div style="font-size:11.5px;color:var(--light);margin-top:1px;" data-i18n="governor_desc">Strategic direction · Constitutional safeguards · Appoint/remove roles</div></div>
+        <div style="margin-top:auto;font-size:10.5px;color:var(--muted);padding-top:8px;border-top:1px solid var(--border);" data-i18n="dao_note">Staking-based eligibility reduces manipulation. All governance actions are traceable, reviewable, and fully transparent on-chain.</div>
+      </div>
+      <div class="card" style="padding:18px;display:flex;flex-direction:column;gap:9px;">
+        <div style="font-size:15px;font-weight:700;color:var(--poly);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;" data-i18n="pique_title">🤖 PIQUE AI — Operations Layer</div>
+        <div style="font-size:11.5px;color:var(--muted);font-style:italic;" data-i18n="pique_sub">Powered by OPENCLAW API · AI-assisted oversight &amp; execution</div>
+        <div style="font-size:10px;letter-spacing:3px;color:var(--muted);font-weight:700;font-family:'Barlow Condensed',sans-serif;" data-i18n="pique_can">PIQUE CAPABILITIES</div>
+        <div class="check-item ok"><span class="ico">✅</span><span class="txt" data-i18n="pique_1">Monitors system activity and participation signals in real-time</span></div>
+        <div class="check-item ok"><span class="ico">✅</span><span class="txt" data-i18n="pique_2">Generates transparent operational and risk reports for DAO review</span></div>
+        <div class="check-item ok"><span class="ico">✅</span><span class="txt" data-i18n="pique_3">Proposes optimizations within DAO-approved scope and boundaries</span></div>
+        <div class="check-item ok"><span class="ico">✅</span><span class="txt" data-i18n="pique_4">Executes approved operations under governance-defined policies</span></div>
+        <div style="font-size:10px;letter-spacing:3px;color:var(--muted);font-weight:700;font-family:'Barlow Condensed',sans-serif;margin-top:2px;" data-i18n="pique_limits">HARD LIMITS</div>
+        <div class="check-item no"><span class="ico">🚫</span><span class="txt" data-i18n="pique_5">Does NOT hold private keys or control user funds</span></div>
+        <div class="check-item no"><span class="ico">🚫</span><span class="txt" data-i18n="pique_6">Cannot modify system rules without explicit DAO authorization</span></div>
+        <div style="margin-top:auto;background:rgba(123,63,228,.07);border:1px solid rgba(123,63,228,.2);border-radius:4px;padding:9px 12px;font-size:11.5px;color:var(--poly);font-style:italic;" data-i18n="pique_quote">"PIQUE acts fast. The DAO decides slow. Vanguards ensure survival."</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="footer-txt">WC26 NFT Fantasy · Pitch Deck · 2026</span><a href="https://wc26nft.info" target="_blank" class="footer-link">wc26nft.info</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+  SLIDE 10 — CALL TO ACTION
+══════════════════════════════════════════ -->
+<div class="slide" id="s10">
+  <div class="stars"></div><div class="topbar multi"></div>
+  <div class="content" style="padding:0;">
+    <div class="anim1" style="background:linear-gradient(135deg,var(--greendk) 0%,var(--green) 60%,rgba(0,230,118,.8) 100%);padding:26px 56px;text-align:center;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:38px;font-weight:900;color:#000;letter-spacing:2px;" data-i18n="cta_title">🏆 JOIN THE ULTIMATE ARENA</div>
+      <div style="font-size:13px;color:rgba(0,0,0,.7);margin-top:3px;letter-spacing:1px;" data-i18n="cta_sub">World Cup 2026 · On-chain · Community-owned · AI-powered</div>
+    </div>
+    <div style="padding:20px 56px;flex:1;display:flex;flex-direction:column;gap:16px;">
+      <div class="grid3 anim2">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:22px 18px;display:flex;flex-direction:column;gap:9px;box-shadow:0 8px 32px rgba(0,0,0,.4);">
+          <div style="height:3px;background:var(--blue);border-radius:2px;"></div>
+          <div style="font-size:15px;font-weight:700;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;color:var(--blue);" data-i18n="cta_web_label">🌐 OFFICIAL WEBSITE</div>
+          <div style="font-size:12px;color:var(--light);line-height:1.6;" data-i18n="cta_web_desc">Learn more · White Paper · Full documentation · Arena overview</div>
+          <a href="https://wc26nft.info" target="_blank" class="btn blue" style="margin-top:auto;font-size:12px;padding:10px;">wc26nft.info →</a>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:22px 18px;display:flex;flex-direction:column;gap:9px;box-shadow:0 8px 32px rgba(0,0,0,.4);">
+          <div style="height:3px;background:var(--green);border-radius:2px;"></div>
+          <div style="font-size:15px;font-weight:700;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;color:var(--green);" data-i18n="cta_seed_label">🌱 BUY SEED ROUND</div>
+          <div style="font-size:12px;color:var(--light);line-height:1.6;" data-i18n="cta_seed_desc">Vanguard 1 · From $0.0025 per WC26 · Limited supply · Best price</div>
+          <a href="https://wc26nft.info/wc26_whitelist_vanguard1.html" target="_blank" class="btn green" style="margin-top:auto;font-size:11px;padding:10px;" data-i18n="cta_seed_btn">Register Now →</a>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:22px 18px;display:flex;flex-direction:column;gap:9px;box-shadow:0 8px 32px rgba(0,0,0,.4);">
+          <div style="height:3px;background:var(--gold);border-radius:2px;"></div>
+          <div style="font-size:15px;font-weight:700;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;color:var(--gold);" data-i18n="cta_tg_label">⚡ TELEGRAM MINI GAME</div>
+          <div style="font-size:12px;color:var(--light);line-height:1.6;" data-i18n="cta_tg_desc">Play now · Earn WC26 tokens · Join the community · Live on Telegram</div>
+          <a href="https://t.me/wc26viral_bot" target="_blank" class="btn gold" style="margin-top:auto;font-size:12px;padding:10px;">t.me/wc26viral_bot →</a>
+        </div>
+      </div>
+      <div class="grid4 anim3">
+        <div class="stat-card green" style="padding:14px;"><div class="stat-val" style="color:var(--green);font-size:34px;">200M</div><div class="stat-label" data-i18n="ms1">WC26 Fixed Supply</div></div>
+        <div class="stat-card gold" style="padding:14px;"><div class="stat-val" style="color:var(--gold);font-size:34px;">16</div><div class="stat-label" data-i18n="ms2_cta">Stadium NFTs</div></div>
+        <div class="stat-card blue" style="padding:14px;"><div class="stat-val" style="color:var(--blue);font-size:34px;">104</div><div class="stat-label" data-i18n="ms3_cta">Matches · WC2026</div></div>
+        <div class="stat-card" style="padding:14px;"><div class="stat-val" style="color:var(--poly);font-size:34px;">$0.0025</div><div class="stat-label" data-i18n="ms4_cta">Seed Entry Price</div></div>
+      </div>
+      <div class="anim4" style="text-align:center;font-size:9.5px;color:var(--muted);" data-i18n="final_disc">WC26 NFT Fantasy · White Paper v1.5 Final · 22/02/2026 · Polygon Network · Entertainment platform · Not financial advice</div>
+    </div>
+    <div class="slide-footer" style="justify-content:center;gap:20px;">
+      <a href="https://wc26nft.info" target="_blank" class="footer-link">🌐 wc26nft.info</a>
+      <span class="footer-txt">·</span>
+      <a href="https://wc26nft.info/wc26_whitelist_vanguard1.html" target="_blank" class="footer-link" data-i18n="seed_link_short">🌱 Seed Round</a>
+      <span class="footer-txt">·</span>
+      <a href="https://t.me/wc26viral_bot" target="_blank" class="footer-link">⚡ t.me/wc26viral_bot</a>
+    </div>
+  </div>
+</div>
+
+</div><!-- #deck -->
+
+<button id="prev">&#8592;</button>
+<button id="next">&#8594;</button>
+<div id="nav">
+  <button class="dot active" data-i="0"></button>
+  <button class="dot" data-i="1"></button>
+  <button class="dot" data-i="2"></button>
+  <button class="dot" data-i="3"></button>
+  <button class="dot" data-i="4"></button>
+  <button class="dot" data-i="5"></button>
+  <button class="dot" data-i="6"></button>
+  <button class="dot" data-i="7"></button>
+  <button class="dot" data-i="8"></button>
+  <button class="dot" data-i="9"></button>
+</div>
+<div id="counter"><span>1</span> / 10</div>
+<div id="progress"></div>
+
+<script>
+// ─── NAVIGATION ───────────────────────────────────────────────
+const slides = document.querySelectorAll('.slide');
+const dots   = document.querySelectorAll('.dot');
+const ctr    = document.querySelector('#counter span');
+const prog   = document.getElementById('progress');
+let cur = 0;
+
+function go(to){
+  if(to===cur) return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('exit-left');
+  setTimeout(()=>slides[cur].classList.remove('exit-left'),450);
+  dots[cur].classList.remove('active');
+  cur=(to+slides.length)%slides.length;
+  slides[cur].classList.add('active');
+  dots[cur].classList.add('active');
+  ctr.textContent=cur+1;
+  prog.style.width=((cur+1)/slides.length*100)+'%';
+}
+
+document.getElementById('prev').onclick=()=>go(cur-1);
+document.getElementById('next').onclick=()=>go(cur+1);
+dots.forEach(d=>d.onclick=()=>go(+d.dataset.i));
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') go(cur+1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')   go(cur-1);
+  if(e.key==='Home') go(0); if(e.key==='End') go(slides.length-1);
+});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(dx<0?cur+1:cur-1);},{passive:true});
+prog.style.width=(1/slides.length*100)+'%';
+
+// ─── TRANSLATIONS ─────────────────────────────────────────────
+// LOCKED TERMS (never translate):
+// WC26, WC26 NFT Fantasy, NFT, NFTs, DAO, PIQUE, Polygon, ERC-20, ERC-721,
+// TGE, Oracle Challenge, Squad Fantasy, Global Jury, Transfer Market, Creator Hub,
+// Arena, Vanguard (1/2/3), VIBE CARD, ORACLE CARD, GhostTime, Whitelist, FCFS,
+// ROI, Token, Tokenomics, Airdrop, Staking, Wallet, Smart Contract, Mainnet,
+// Seed Round, IDO, DEX, Liquidity, Multisig, KOL, FDV, MIP, WPP, SP
+
+const T = {
+en: {
+  cover_tagline2:"5 billion viewers · 104 matches · 48 nations",
+  cover_b1:"Interactive on-chain sports entertainment",
+  cover_b2:"Built on Polygon — World Cup 2026 &amp; beyond",
+  cover_b3:"DAO-governed · AI-operated (PIQUE)",
+  cover_b4:"Fan-owned economy",
+  seed_open:"SEED ROUND OPEN",
+  buy_seed_link:"🌱 Buy Seed Round",
+  play_now_link:"⚡ Telegram Mini Game",
+  cover_section:"WORLD CUP 2026 · ON-CHAIN PARTICIPATION ECONOMY",
+  cover_headline:"Every On-Pitch Moment Becomes Structured Participation",
+  cover_desc:"WC26 NFT Fantasy transforms fans from passive spectators into active participants through a real-time, event-driven on-chain economy powered by football data.",
+  ms1:"WC26 Token Fixed Supply",
+  ms2:"Stadium NFTs · Venue-limited",
+  ms3:"Arena Participation Modules",
+  ms4:"Seed Entry Price / WC26",
+  btn_website:"🌐 Visit Website",
+  btn_seed:"🌱 Buy Seed Round",
+  btn_play:"⚡ Play Now",
+  opp_section:"THE OPPORTUNITY",
+  opp_title:"Football Fans Deserve More Than a <span class=\"hi\">Seat</span>",
+  opp_desc1:"Most digital products still position fans as ",
+  opp_spectators:"spectators",
+  opp_desc2:". WC26 NFT Fantasy transforms every on-pitch moment into structured, on-chain participation.",
+  stat1:"Global Football Fans",
+  stat2:"WC2026 Viewers (estimated)",
+  stat3:"Football Fans on Telegram",
+  precedents_title:"PROVEN PRECEDENTS — TELEGRAM MINI APPS",
+  th_app:"Mini App", th_users:"Users", th_mechanic:"Core Mechanics", th_insight:"Key Insight",
+  hk_mech:"Upgrades, daily rewards", hk_ins:"Daily loops drove retention",
+  nc_mech:"Points accumulation", nc_ins:"Low friction = viral growth",
+  ts_mech:"Daily missions, progression", ts_ins:"Missions sustained engagement",
+  bl_mech:"Community rewards", bl_ins:"Community challenges scale",
+  sol_section:"THE SOLUTION",
+  sol_title_hi:"Participation Modules",
+  before_match:"BEFORE MATCHES", during_match:"DURING MATCHES", after_match:"AFTER MATCHES",
+  f1_title:"Prediction Arena", f1_desc:"Predict match outcomes before kick-off. VIBE CARDS (outcome) + ORACLE CARDS (exact score). Rewards scale with accuracy.",
+  f2_title:"Tactical Management", f2_desc:"Assemble lineups from Player NFTs. Outcomes via GhostTime real-pitch scoring engine. Top 10 squads win token rewards.",
+  f3_title:"Community Verdict", f3_desc:"MIP (Most Impactful Player) and WPP (Worst Performance) voting. Community awards ±20 SP in 24h after final whistle.",
+  f4_title:"Living History", f4_desc:"Match-Day Souvenirs, Venue-Limited Player NFTs, \"The Moment\" Flash Drops. Each drop captures tournament history.",
+  f5_title:"Fan Expression", f5_desc:"Fans create, mint, and share original content tied to matches. PIQUE AI validation. Creator-controlled pricing.",
+  f6_title:"24/7 P2P Marketplace", f6_desc:"Continuous non-custodial marketplace for WC26, Player NFTs (5 tiers), Stadium NFTs, MEME Moments. 10% protocol burn.",
+  assets_section:"DIGITAL ASSETS",
+  assets_title:"Three Pillars of the <span class=\"hi\">WC26 Ecosystem</span>",
+  p1_note:"Fixed supply · ERC-20 · No inflation",
+  p1_1:"Polygon network (Chain ID 137)", p1_2:"Participation access across all modules", p1_3:"Governance commitment unit", p1_4:"Staking × duration = voting power", p1_5:"Operational sustainability",
+  p2_badge:"5 TIERS", p2_1:"Real on-pitch performance data", p2_3:"Carries history across all matches", p2_4:"Primary anchor for Squad Fantasy", p2_5:"Venue-limited exclusive drops",
+  p3_note:"Venue-limited · Auction-only access",
+  p3_1:"Tied to real World Cup venues", p3_2:"Receives 5% of all module fees", p3_3:"Digital venue ownership rights", p3_4:"Infrastructure asset class", p3_5:"Long-term ecosystem anchors",
+  tok_section:"TOKENOMICS",
+  tok_title_hi:"Fixed Supply, No Inflation",
+  alloc_title:"FULL ALLOCATION BREAKDOWN",
+  col_cat:"Category", col_tokens:"Tokens",
+  grp_fundraising:"FUNDRAISING — 36.5%", grp_ecosystem:"ECOSYSTEM — 36.0%", grp_team:"TEAM &amp; OPS — 27.5%",
+  vg1_label:"Vanguard 1 (Friends &amp; Family)", vg2_label:"Vanguard 2 (Early Builders)", vg3_label:"Vanguard 3 (KOLs / Strategic)",
+  comm_sale_label:"Community Sale (Whitelist/FCFS/Lottery)",
+  game_rewards_label:"Game Rewards (WC26–EURO2028)", activity_label:"Activity &amp; Campaigns (Airdrop)",
+  team_label:"Team &amp; Advisors", lp_label:"Liquidity Pool &amp; Buffer", treasury_label:"Treasury (Dev, OPS, Reserve)",
+  total_supply:"TOTAL SUPPLY",
+  visual_alloc:"VISUAL ALLOCATION", fundraising_lbl:"Fundraising", ecosystem_lbl:"Ecosystem / Game Rewards", teamops_lbl:"Team &amp; Ops",
+  vesting_note:"Vesting: 20% TGE cliff · 90-day cliff · 240-day linear unlock",
+  emission_title:"WC2026 EMISSION — 15,000,000 WC26",
+  group_stage:"Group Stage", "72_matches":"72 matches", r32:"Round of 32", "16_matches":"16 matches",
+  semis:"Semi-finals", "2_matches":"2 matches", the_final:"THE FINAL 🏆", "1_match":"1 match",
+  seed_section:"SEED ROUND — VANGUARD PROGRAM",
+  seed_title:"3 Tiers — Early Believers, Builders &amp; <span class=\"hi\">Strategic Partners</span>",
+  vg1_badge:"EARLIEST · R.1", vg1_sub:"Friends &amp; Family Round", vg1_raise:"Raise target: <strong style=\"color:var(--green);\">$25,000</strong>",
+  vg2_badge:"ACTIVE · R.2", vg2_sub:"Early Believers &amp; Active Builders", vg2_raise:"Raise target: <strong style=\"color:var(--blue);\">$45,000</strong>",
+  vg3_badge:"STRATEGIC · R.3", vg3_sub:"Strategic Partners &amp; KOLs", vg3_raise:"Raise target: <strong style=\"color:var(--gold);\">$65,000</strong>",
+  per_token:"per WC26 token", vesting_short:"20% TGE · 90-day cliff · 240-day linear",
+  buy_vg1:"🌱 Buy Vanguard 1", join_vg2:"🌱 Join Vanguard 2", join_vg3:"🌱 Join Vanguard 3",
+  cs_phase1:"Phase 1 · Whitelist", cs_phase2:"Phase 2 · Public FCFS", cs_phase3:"Phase 3 · Lottery",
+  register_wl:"Register Whitelist →",
+  roi_section:"INVESTOR ROI — PRICE SCENARIOS",
+  roi_title:"Price Targets &amp; <span class=\"hi\">ROI Projections</span> by Scenario",
+  bear_badge:"BEAR CASE", bear_mcap:"FDV: ~$2M · Low adoption",
+  base_badge:"BASE CASE", base_mcap:"FDV: ~$10M · Successful launch",
+  bull_badge:"BULL CASE", bull_mcap:"FDV: ~$40M · Viral growth",
+  entry_price:"Entry Price", roi_mult:"ROI", per_10k:"Per $10K invest",
+  bear_note:"Conservative: limited WC2026 traction, early exit conditions",
+  base_note:"Base: active WC2026 engagement, 100K+ monthly users",
+  bull_note:"Bull: viral WC2026 adoption, comparable to Sorare / NBA Top Shot trajectory",
+  comp_title:"COMPARABLE PROJECTS (HISTORICAL)",
+  comp_proj:"Project", comp_domain:"Domain", comp_peak:"Peak Growth*",
+  fantasy_nft:"Fantasy football NFT", sports_nft:"Sports NFT moments", game_eco:"GameFi ecosystem", gamified:"Gamified activity",
+  comp_note:"* Historical peak from earliest entry. Not a forecast or guarantee.",
+  fdv_title:"FDV ASSUMPTION BASIS",
+  fdv_bear:"Bear — $2M FDV", fdv_base:"Base — $10M FDV", fdv_bull:"Bull — $40M FDV",
+  fdv_note:"Based on 200M total supply. Circulating at TGE ~10–15% of total.",
+  disclaimer:"⚠ These projections are for illustrative purposes only. Cryptocurrency investments carry significant risk, including total loss of principal. WC26 NFT Fantasy is an entertainment platform — tokens are not financial instruments. Always do your own research (DYOR).",
+  road_section:"ROADMAP — 8 PHASES",
+  road_title:"Trust Before Scale · <span class=\"hi\">Participation</span> Before Monetization",
+  ph0:"Foundation", ph0_sub:"Legal · DAO-lite", ph1:"Vanguard", ph1_sub:"Early community",
+  ph2:"Community Launch", ph2_sub:"Token sale · Liquidity", ph3:"Arena Conquest", ph3_sub:"Stadium NFT Auction",
+  ph4:"Mystery Box", ph4_sub:"Player NFT drops", ph5:"Transfer Market", ph5_sub:"P2P marketplace",
+  ph6:"MVP Games", ph7:"WC2026 Live 🏆", ph7_sub:"Full operations",
+  wc2026_live:"WORLD CUP 2026 — LIVE OPERATIONS (Phase 7)",
+  wc2026_desc:"Live match events · Dynamic reward tuning · Limited drops · PIQUE AI real-time data · Global community scaling",
+  th_phase:"Phase", th_objective:"Primary Objective", th_products:"Core Products", th_role:"Strategic Role",
+  r1_obj:"Build trust &amp; early alignment", r1_prod:"Vanguard I–III · Vanguard Badge NFT", r1_role:"Secure long-term believers",
+  r2_obj:"Enable broad token participation", r2_prod:"Public sale (Whitelist / FCFS / Lottery)", r2_role:"Open community transition",
+  r3_obj:"Peak ownership layer", r3_prod:"Stadium NFT Auction (16 NFTs)", r3_role:"Long-term ecosystem anchors",
+  r6_obj:"Volume &amp; engagement", r6_role:"Activate full participation layer",
+  gov_section:"GOVERNANCE &amp; AI",
+  gov_title:"DAO-Governed · AI-Operated · <span style=\"color:var(--poly);\">Community-Owned</span>",
+  dao_title:"🏛 DAO GOVERNANCE",
+  dao_formula:"Governance Power = Staked WC26 × Duration of Staking",
+  dao_tiers_title:"3-TIER GOVERNANCE STRUCTURE",
+  entry_tier:"ENTRY LEVEL", entry_desc:"Observer · Signaling · Limited voting rights",
+  committed_tier:"COMMITTED CONTRIBUTORS", committed_desc:"Operational proposals · Parameter adjustments",
+  governor_tier:"GOVERNOR", governor_desc:"Strategic direction · Constitutional safeguards · Appoint/remove roles",
+  dao_note:"Staking-based eligibility reduces manipulation. All governance actions are traceable, reviewable, and fully transparent on-chain.",
+  pique_title:"🤖 PIQUE AI — Operations Layer", pique_sub:"Powered by OPENCLAW API · AI-assisted oversight &amp; execution",
+  pique_can:"PIQUE CAPABILITIES",
+  pique_1:"Monitors system activity and participation signals in real-time",
+  pique_2:"Generates transparent operational and risk reports for DAO review",
+  pique_3:"Proposes optimizations within DAO-approved scope and boundaries",
+  pique_4:"Executes approved operations under governance-defined policies",
+  pique_limits:"HARD LIMITS",
+  pique_5:"Does NOT hold private keys or control user funds",
+  pique_6:"Cannot modify system rules without explicit DAO authorization",
+  pique_quote:"\"PIQUE acts fast. The DAO decides slow. Vanguards ensure survival.\"",
+  cta_title:"🏆 JOIN THE ULTIMATE ARENA",
+  cta_sub:"World Cup 2026 · On-chain · Community-owned · AI-powered",
+  cta_web_label:"🌐 OFFICIAL WEBSITE", cta_web_desc:"Learn more · White Paper · Full documentation · Arena overview",
+  cta_seed_label:"🌱 BUY SEED ROUND", cta_seed_desc:"Vanguard 1 · From $0.0025 per WC26 · Limited supply · Best price", cta_seed_btn:"Register Now →",
+  cta_tg_label:"⚡ TELEGRAM MINI GAME", cta_tg_desc:"Play now · Earn WC26 tokens · Join the community · Live on Telegram",
+  ms2_cta:"Stadium NFTs", ms3_cta:"Matches · WC2026", ms4_cta:"Seed Entry Price",
+  final_disc:"WC26 NFT Fantasy · White Paper v1.5 Final · 22/02/2026 · Polygon Network · Entertainment platform · Not financial advice",
+  seed_link_short:"🌱 Seed Round"
+},
+
+vi: {
+  cover_tagline2:"5 tỷ khán giả · 104 trận đấu · 48 quốc gia",
+  cover_b1:"Nền tảng thể thao giải trí tương tác on-chain",
+  cover_b2:"Xây dựng trên Polygon — World Cup 2026 &amp; hơn thế nữa",
+  cover_b3:"Quản trị bởi DAO · Vận hành bởi AI (PIQUE)",
+  cover_b4:"Nền kinh tế thuộc sở hữu cộng đồng",
+  seed_open:"SEED ROUND ĐANG MỞ",
+  buy_seed_link:"🌱 Mua Seed Round",
+  play_now_link:"⚡ Mini Game Telegram",
+  cover_section:"WORLD CUP 2026 · NỀN KINH TẾ THAM GIA ON-CHAIN",
+  cover_headline:"Mỗi khoảnh khắc sân cỏ trở thành sự tham gia có cấu trúc",
+  cover_desc:"WC26 NFT Fantasy biến người hâm mộ từ khán giả thụ động thành người tham gia chủ động qua nền kinh tế on-chain theo thời gian thực, được vận hành bởi dữ liệu bóng đá.",
+  ms1:"Nguồn cung cố định WC26 Token",
+  ms2:"Stadium NFTs · Giới hạn theo địa điểm",
+  ms3:"Các Module tham gia Arena",
+  ms4:"Giá vào Seed / WC26",
+  btn_website:"🌐 Truy cập Website",
+  btn_seed:"🌱 Mua Seed Round",
+  btn_play:"⚡ Chơi ngay",
+  opp_section:"CƠ HỘI THỊ TRƯỜNG",
+  opp_title:"Người hâm mộ bóng đá xứng đáng hơn là một <span class=\"hi\">chỗ ngồi</span>",
+  opp_desc1:"Hầu hết sản phẩm số vẫn định vị người hâm mộ là ",
+  opp_spectators:"khán giả thụ động",
+  opp_desc2:". WC26 NFT Fantasy biến mỗi khoảnh khắc sân cỏ thành sự tham gia có cấu trúc, on-chain.",
+  stat1:"Người hâm mộ bóng đá toàn cầu",
+  stat2:"Khán giả WC2026 (ước tính)",
+  stat3:"Người hâm mộ bóng đá trên Telegram",
+  precedents_title:"TIỀN LỆ ĐÃ CHỨNG MINH — TELEGRAM MINI APPS",
+  th_app:"Mini App", th_users:"Người dùng", th_mechanic:"Cơ chế cốt lõi", th_insight:"Bài học chính",
+  hk_mech:"Nâng cấp, phần thưởng hàng ngày", hk_ins:"Vòng lặp hàng ngày tạo retention cao",
+  nc_mech:"Tích lũy điểm", nc_ins:"Ma sát thấp = tăng trưởng viral",
+  ts_mech:"Nhiệm vụ hàng ngày, tiến độ", ts_ins:"Nhiệm vụ duy trì tương tác",
+  bl_mech:"Phần thưởng cộng đồng", bl_ins:"Thách thức cộng đồng mở rộng được",
+  sol_section:"GIẢI PHÁP",
+  sol_title_hi:"6 Module Tham Gia",
+  before_match:"TRƯỚC TRẬN ĐẤU", during_match:"TRONG TRẬN ĐẤU", after_match:"SAU TRẬN ĐẤU",
+  f1_title:"Đấu trường dự đoán", f1_desc:"Dự đoán kết quả trận đấu trước giờ bóng lăn. VIBE CARDS (kết quả) + ORACLE CARDS (tỷ số chính xác). Phần thưởng tỷ lệ thuận với độ chính xác.",
+  f2_title:"Quản lý chiến thuật", f2_desc:"Lắp ráp đội hình từ Player NFTs. Kết quả được tính qua engine GhostTime từ dữ liệu sân cỏ thực. Top 10 Squad nhận phần thưởng token.",
+  f3_title:"Phán quyết cộng đồng", f3_desc:"Bình chọn MIP (Cầu thủ có tác động lớn nhất) và WPP (Màn trình diễn tệ nhất). Cộng đồng trao ±20 SP trong 24h sau trận.",
+  f4_title:"Lịch sử sống", f4_desc:"Match-Day Souvenirs, Player NFTs giới hạn theo địa điểm, Flash Drops \"Khoảnh Khắc\". Mỗi lần drop ghi lại lịch sử giải đấu.",
+  f5_title:"Biểu đạt người hâm mộ", f5_desc:"Fan tạo, mint và chia sẻ nội dung gốc gắn với trận đấu. PIQUE AI kiểm duyệt. Giá do người tạo kiểm soát.",
+  f6_title:"Sàn giao dịch P2P 24/7", f6_desc:"Marketplace phi lưu ký liên tục cho WC26, Player NFTs (5 cấp độ), Stadium NFTs, MEME Moments. Đốt 10% phí giao thức.",
+  assets_section:"TÀI SẢN SỐ",
+  assets_title:"Ba trụ cột của <span class=\"hi\">hệ sinh thái WC26</span>",
+  p1_note:"Nguồn cung cố định · ERC-20 · Không lạm phát",
+  p1_1:"Mạng Polygon (Chain ID 137)", p1_2:"Quyền truy cập tham gia tất cả module", p1_3:"Đơn vị cam kết quản trị", p1_4:"Staking × thời gian = quyền bỏ phiếu", p1_5:"Tính bền vững vận hành",
+  p2_badge:"5 CẤP ĐỘ", p2_1:"Dữ liệu hiệu suất sân cỏ thực", p2_3:"Lưu giữ lịch sử qua tất cả trận đấu", p2_4:"Trụ cột chính cho Squad Fantasy", p2_5:"Drop độc quyền giới hạn theo địa điểm",
+  p3_note:"Giới hạn theo địa điểm · Chỉ qua Auction",
+  p3_1:"Gắn với sân vận động World Cup thực", p3_2:"Nhận 5% phí từ tất cả module", p3_3:"Quyền sở hữu địa điểm kỹ thuật số", p3_4:"Tài sản hạ tầng cốt lõi", p3_5:"Cơ điểm dài hạn cho hệ sinh thái",
+  tok_section:"TOKENOMICS",
+  tok_title_hi:"Nguồn cung cố định, không lạm phát",
+  alloc_title:"PHÂN BỔ ĐẦY ĐỦ",
+  col_cat:"Hạng mục", col_tokens:"Số lượng",
+  grp_fundraising:"GỌI VỐN — 36.5%", grp_ecosystem:"HỆ SINH THÁI — 36.0%", grp_team:"ĐỘI NGŨ &amp; VẬN HÀNH — 27.5%",
+  vg1_label:"Vanguard 1 (Bạn bè &amp; Gia đình)", vg2_label:"Vanguard 2 (Nhà xây dựng sớm)", vg3_label:"Vanguard 3 (KOL / Đối tác chiến lược)",
+  comm_sale_label:"Community Sale (Whitelist/FCFS/Lottery)",
+  game_rewards_label:"Phần thưởng game (WC26–EURO2028)", activity_label:"Hoạt động &amp; Chiến dịch (Airdrop)",
+  team_label:"Đội ngũ &amp; Cố vấn", lp_label:"Liquidity Pool &amp; Buffer", treasury_label:"Quỹ dự trữ (Dev, Vận hành)",
+  total_supply:"TỔNG CUNG",
+  visual_alloc:"PHÂN BỔ TRỰC QUAN", fundraising_lbl:"Gọi vốn", ecosystem_lbl:"Hệ sinh thái / Phần thưởng game", teamops_lbl:"Đội ngũ &amp; Vận hành",
+  vesting_note:"Vesting: 20% TGE · Khóa 90 ngày · Mở tuyến tính 240 ngày",
+  emission_title:"PHÁT HÀNH WC2026 — 15,000,000 WC26",
+  group_stage:"Vòng bảng", "72_matches":"72 trận", r32:"Vòng 32", "16_matches":"16 trận",
+  semis:"Bán kết", "2_matches":"2 trận", the_final:"CHUNG KẾT 🏆", "1_match":"1 trận",
+  seed_section:"SEED ROUND — CHƯƠNG TRÌNH VANGUARD",
+  seed_title:"3 Cấp — Nhà đầu tư sớm, Nhà xây dựng &amp; <span class=\"hi\">Đối tác chiến lược</span>",
+  vg1_badge:"SỚM NHẤT · R.1", vg1_sub:"Vòng Bạn bè &amp; Gia đình", vg1_raise:"Mục tiêu huy động: <strong style=\"color:var(--green);\">$25,000</strong>",
+  vg2_badge:"ĐANG MỞ · R.2", vg2_sub:"Nhà đầu tư sớm &amp; Nhà xây dựng tích cực", vg2_raise:"Mục tiêu huy động: <strong style=\"color:var(--blue);\">$45,000</strong>",
+  vg3_badge:"CHIẾN LƯỢC · R.3", vg3_sub:"Đối tác chiến lược &amp; KOL", vg3_raise:"Mục tiêu huy động: <strong style=\"color:var(--gold);\">$65,000</strong>",
+  per_token:"mỗi WC26 token", vesting_short:"20% TGE · Khóa 90 ngày · Tuyến tính 240 ngày",
+  buy_vg1:"🌱 Mua Vanguard 1", join_vg2:"🌱 Tham gia Vanguard 2", join_vg3:"🌱 Tham gia Vanguard 3",
+  cs_phase1:"Giai đoạn 1 · Whitelist", cs_phase2:"Giai đoạn 2 · Public FCFS", cs_phase3:"Giai đoạn 3 · Lottery",
+  register_wl:"Đăng ký Whitelist →",
+  roi_section:"ROI NHÀ ĐẦU TƯ — CÁC KỊCH BẢN GIÁ",
+  roi_title:"Mục tiêu giá &amp; <span class=\"hi\">Dự phóng ROI</span> theo kịch bản",
+  bear_badge:"KỊCH BẢN THẤP", bear_mcap:"FDV: ~$2M · Tăng trưởng hạn chế",
+  base_badge:"KỊCH BẢN CƠ SỞ", base_mcap:"FDV: ~$10M · Ra mắt thành công",
+  bull_badge:"KỊCH BẢN CAO", bull_mcap:"FDV: ~$40M · Tăng trưởng viral",
+  entry_price:"Giá vào", roi_mult:"ROI", per_10k:"Mỗi $10K đầu tư",
+  bear_note:"Bảo thủ: WC2026 tăng trưởng hạn chế, điều kiện thoát sớm",
+  base_note:"Cơ sở: WC2026 hoạt động mạnh, 100K+ người dùng mỗi tháng",
+  bull_note:"Tăng trưởng viral WC2026, tương đương lộ trình Sorare / NBA Top Shot",
+  comp_title:"DỰ ÁN THAM CHIẾU (LỊCH SỬ)",
+  comp_proj:"Dự án", comp_domain:"Lĩnh vực", comp_peak:"Tăng trưởng đỉnh*",
+  fantasy_nft:"Fantasy football NFT", sports_nft:"Sports NFT khoảnh khắc", game_eco:"Hệ sinh thái GameFi", gamified:"Hoạt động có game hóa",
+  comp_note:"* Đỉnh lịch sử từ điểm vào sớm nhất. Không phải dự báo hay bảo đảm.",
+  fdv_title:"CƠ SỞ GIẢ ĐỊNH FDV",
+  fdv_bear:"Thấp — $2M FDV", fdv_base:"Cơ sở — $10M FDV", fdv_bull:"Cao — $40M FDV",
+  fdv_note:"Dựa trên 200M tổng cung. Lưu thông tại TGE ~10–15% tổng cung.",
+  disclaimer:"⚠ Các dự phóng này chỉ mang tính minh họa. Đầu tư vào tiền mã hóa có rủi ro đáng kể, bao gồm mất toàn bộ vốn. WC26 NFT Fantasy là nền tảng giải trí — token không phải công cụ tài chính. Luôn tự nghiên cứu (DYOR).",
+  road_section:"LỘ TRÌNH — 8 GIAI ĐOẠN",
+  road_title:"Tin tưởng trước Quy mô · <span class=\"hi\">Tham gia</span> trước Kiếm tiền",
+  ph0:"Nền tảng", ph0_sub:"Pháp lý · DAO-lite", ph1:"Vanguard", ph1_sub:"Cộng đồng sớm",
+  ph2:"Community Launch", ph2_sub:"Bán token · Thanh khoản", ph3:"Arena Conquest", ph3_sub:"Đấu giá Stadium NFT",
+  ph4:"Mystery Box", ph4_sub:"Ra mắt Player NFT", ph5:"Transfer Market", ph5_sub:"Sàn giao dịch P2P",
+  ph6:"MVP Games", ph7:"WC2026 Live 🏆", ph7_sub:"Vận hành toàn lực",
+  wc2026_live:"WORLD CUP 2026 — VẬN HÀNH TRỰC TIẾP (Giai đoạn 7)",
+  wc2026_desc:"Sự kiện trận đấu trực tiếp · Điều chỉnh phần thưởng linh hoạt · Drop giới hạn · Dữ liệu thời gian thực qua PIQUE AI · Mở rộng cộng đồng toàn cầu",
+  th_phase:"Giai đoạn", th_objective:"Mục tiêu chính", th_products:"Sản phẩm cốt lõi", th_role:"Vai trò chiến lược",
+  r1_obj:"Xây dựng tin tưởng &amp; liên kết sớm", r1_prod:"Vanguard I–III · Vanguard Badge NFT", r1_role:"Thu hút nhà đầu tư dài hạn",
+  r2_obj:"Mở rộng tham gia token rộng rãi", r2_prod:"Bán công khai (Whitelist / FCFS / Lottery)", r2_role:"Chuyển sang cộng đồng mở",
+  r3_obj:"Tầng sở hữu đỉnh cao", r3_prod:"Đấu giá Stadium NFT (16 NFTs)", r3_role:"Cơ điểm dài hạn hệ sinh thái",
+  r6_obj:"Tạo khối lượng &amp; tương tác", r6_role:"Kích hoạt toàn bộ tầng tham gia",
+  gov_section:"QUẢN TRỊ &amp; AI",
+  gov_title:"Quản trị bởi DAO · Vận hành bởi AI · <span style=\"color:var(--poly);\">Cộng đồng sở hữu</span>",
+  dao_title:"🏛 QUẢN TRỊ DAO",
+  dao_formula:"Quyền lực quản trị = WC26 đã Staking × Thời gian Staking",
+  dao_tiers_title:"CẤU TRÚC QUẢN TRỊ 3 TẦNG",
+  entry_tier:"CẤP CƠ BẢN", entry_desc:"Quan sát · Tín hiệu · Quyền bỏ phiếu giới hạn",
+  committed_tier:"NGƯỜI ĐÓNG GÓP CAM KẾT", committed_desc:"Đề xuất vận hành · Điều chỉnh thông số",
+  governor_tier:"THỐNG ĐỐC", governor_desc:"Định hướng chiến lược · Bảo vệ hiến chương · Bổ nhiệm/bãi miễn vai trò",
+  dao_note:"Điều kiện Staking giảm thao túng. Tất cả hành động quản trị: có thể truy vết, xem xét và hoàn toàn minh bạch on-chain.",
+  pique_title:"🤖 PIQUE AI — Tầng vận hành", pique_sub:"Được cung cấp bởi OPENCLAW API · Giám sát &amp; thực thi hỗ trợ bởi AI",
+  pique_can:"KHẢ NĂNG CỦA PIQUE",
+  pique_1:"Theo dõi hoạt động hệ thống và tín hiệu tham gia theo thời gian thực",
+  pique_2:"Tạo báo cáo vận hành và rủi ro minh bạch để DAO xem xét",
+  pique_3:"Đề xuất tối ưu hóa trong phạm vi được DAO phê duyệt",
+  pique_4:"Thực thi các hoạt động được phê duyệt theo chính sách quản trị",
+  pique_limits:"GIỚI HẠN CỨNG",
+  pique_5:"KHÔNG giữ private key hay kiểm soát tài sản người dùng",
+  pique_6:"Không thể sửa đổi quy tắc hệ thống không có ủy quyền rõ ràng từ DAO",
+  pique_quote:"\"PIQUE hành động nhanh. DAO quyết định chậm. Vanguards đảm bảo sự tồn tại.\"",
+  cta_title:"🏆 THAM GIA ULTIMATE ARENA",
+  cta_sub:"World Cup 2026 · On-chain · Cộng đồng sở hữu · Vận hành bởi AI",
+  cta_web_label:"🌐 WEBSITE CHÍNH THỨC", cta_web_desc:"Tìm hiểu thêm · White Paper · Tài liệu đầy đủ · Tổng quan Arena",
+  cta_seed_label:"🌱 MUA SEED ROUND", cta_seed_desc:"Vanguard 1 · Từ $0.0025 mỗi WC26 · Nguồn cung giới hạn · Giá tốt nhất", cta_seed_btn:"Đăng ký ngay →",
+  cta_tg_label:"⚡ TELEGRAM MINI GAME", cta_tg_desc:"Chơi ngay · Kiếm WC26 token · Tham gia cộng đồng · Trực tiếp trên Telegram",
+  ms2_cta:"Stadium NFTs", ms3_cta:"Trận đấu · WC2026", ms4_cta:"Giá vào Seed",
+  final_disc:"WC26 NFT Fantasy · White Paper v1.5 Final · 22/02/2026 · Polygon Network · Nền tảng giải trí · Không phải tư vấn tài chính",
+  seed_link_short:"🌱 Seed Round"
+},
+
+ko: {
+  cover_tagline2:"50억 시청자 · 104경기 · 48개국",
+  cover_b1:"인터랙티브 온체인 스포츠 엔터테인먼트",
+  cover_b2:"Polygon 기반 — 2026 월드컵 &amp; 그 이상",
+  cover_b3:"DAO 거버넌스 · AI 운영 (PIQUE)",
+  cover_b4:"팬이 소유하는 경제 생태계",
+  seed_open:"SEED ROUND 진행 중",
+  buy_seed_link:"🌱 Seed Round 구매",
+  play_now_link:"⚡ Telegram 미니게임",
+  cover_section:"2026 월드컵 · 온체인 참여 경제",
+  cover_headline:"모든 경기장 순간이 구조화된 참여로 전환됩니다",
+  cover_desc:"WC26 NFT Fantasy는 팬을 수동적 관중에서 능동적 참여자로 전환합니다. 실시간 이벤트 기반 온체인 경제, 실제 축구 데이터로 구동됩니다.",
+  ms1:"WC26 Token 고정 공급량",
+  ms2:"Stadium NFTs · 장소 한정",
+  ms3:"Arena 참여 모듈",
+  ms4:"Seed 진입 가격 / WC26",
+  btn_website:"🌐 웹사이트 방문",
+  btn_seed:"🌱 Seed Round 구매",
+  btn_play:"⚡ 지금 플레이",
+  opp_section:"시장 기회",
+  opp_title:"축구 팬은 단순한 <span class=\"hi\">관중석</span> 이상을 받을 자격이 있습니다",
+  opp_desc1:"대부분의 디지털 제품은 여전히 팬을 ",
+  opp_spectators:"수동적 관중",
+  opp_desc2:"으로 포지셔닝합니다. WC26 NFT Fantasy는 모든 경기장 순간을 구조화된 온체인 참여로 전환합니다.",
+  stat1:"전 세계 축구 팬",
+  stat2:"WC2026 시청자 (추정)",
+  stat3:"Telegram 축구 팬",
+  precedents_title:"검증된 선례 — TELEGRAM 미니앱",
+  th_app:"미니앱", th_users:"사용자", th_mechanic:"핵심 메커니즘", th_insight:"핵심 인사이트",
+  hk_mech:"업그레이드, 일일 보상", hk_ins:"일일 루프가 리텐션 견인",
+  nc_mech:"포인트 적립", nc_ins:"낮은 진입장벽 = 바이럴 성장",
+  ts_mech:"일일 미션, 진행 시스템", ts_ins:"미션이 지속 참여 유지",
+  bl_mech:"커뮤니티 보상", bl_ins:"커뮤니티 챌린지 확장성 입증",
+  sol_section:"솔루션",
+  sol_title_hi:"6개 참여 모듈",
+  before_match:"경기 전", during_match:"경기 중", after_match:"경기 후",
+  f1_title:"예측 아레나", f1_desc:"킥오프 전 경기 결과 예측. VIBE CARDS (결과) + ORACLE CARDS (정확한 스코어). 정확도에 비례한 보상 지급.",
+  f2_title:"전술 매니지먼트", f2_desc:"Player NFTs로 라인업 구성. GhostTime 실전 스코어링 엔진으로 결과 결정. 상위 10개 Squad가 토큰 보상 수령.",
+  f3_title:"커뮤니티 평결", f3_desc:"MIP (가장 영향력 있는 선수) 및 WPP (최악 퍼포먼스) 투표. 경기 종료 후 24시간 내 ±20 SP 부여.",
+  f4_title:"살아있는 역사", f4_desc:"Match-Day Souvenirs, 장소 한정 Player NFTs, '그 순간' Flash Drops. 각 드롭은 토너먼트 역사를 기록합니다.",
+  f5_title:"팬 표현", f5_desc:"팬이 경기와 연결된 오리지널 콘텐츠 제작·민팅·공유. PIQUE AI 검증. 창작자 주도 가격 설정.",
+  f6_title:"24/7 P2P 마켓플레이스", f6_desc:"WC26, Player NFTs (5단계), Stadium NFTs, MEME Moments를 위한 비수탁 마켓플레이스. 프로토콜 10% 소각.",
+  assets_section:"디지털 자산",
+  assets_title:"<span class=\"hi\">WC26 생태계</span>의 세 가지 핵심 축",
+  p1_note:"고정 공급량 · ERC-20 · 무인플레이션",
+  p1_1:"Polygon 네트워크 (Chain ID 137)", p1_2:"모든 모듈 참여 접근권", p1_3:"거버넌스 약정 단위", p1_4:"Staking × 기간 = 투표권", p1_5:"운영 지속가능성",
+  p2_badge:"5단계", p2_1:"실제 경기 퍼포먼스 데이터", p2_3:"모든 경기에 걸친 히스토리 보존", p2_4:"Squad Fantasy의 핵심 앵커", p2_5:"장소 한정 익스클루시브 드롭",
+  p3_note:"장소 한정 · 경매 전용 접근",
+  p3_1:"실제 월드컵 경기장과 연결", p3_2:"모든 모듈 수수료의 5% 수취", p3_3:"디지털 경기장 소유권", p3_4:"인프라 자산 클래스", p3_5:"생태계 장기 앵커 포인트",
+  tok_section:"토크노믹스",
+  tok_title_hi:"고정 공급량, 무인플레이션",
+  alloc_title:"전체 배분 내역",
+  col_cat:"카테고리", col_tokens:"토큰 수량",
+  grp_fundraising:"펀드레이징 — 36.5%", grp_ecosystem:"생태계 — 36.0%", grp_team:"팀 &amp; 운영 — 27.5%",
+  vg1_label:"Vanguard 1 (지인 &amp; 가족)", vg2_label:"Vanguard 2 (초기 빌더)", vg3_label:"Vanguard 3 (KOL / 전략적 파트너)",
+  comm_sale_label:"커뮤니티 세일 (Whitelist/FCFS/Lottery)",
+  game_rewards_label:"게임 보상 (WC26–EURO2028)", activity_label:"활동 &amp; 캠페인 (Airdrop)",
+  team_label:"팀 &amp; 어드바이저", lp_label:"Liquidity Pool &amp; Buffer", treasury_label:"트레저리 (개발, 운영, 준비금)",
+  total_supply:"총 공급량",
+  visual_alloc:"배분 시각화", fundraising_lbl:"펀드레이징", ecosystem_lbl:"생태계 / 게임 보상", teamops_lbl:"팀 &amp; 운영",
+  vesting_note:"베스팅: 20% TGE · 90일 클리프 · 240일 선형 언락",
+  emission_title:"WC2026 토큰 발행 — 15,000,000 WC26",
+  group_stage:"조별 리그", "72_matches":"72경기", r32:"32강", "16_matches":"16경기",
+  semis:"준결승", "2_matches":"2경기", the_final:"결승 🏆", "1_match":"1경기",
+  seed_section:"SEED ROUND — VANGUARD 프로그램",
+  seed_title:"3단계 — 얼리 빌리버, 빌더 &amp; <span class=\"hi\">전략적 파트너</span>",
+  vg1_badge:"최초 · R.1", vg1_sub:"지인 &amp; 가족 라운드", vg1_raise:"목표 모금액: <strong style=\"color:var(--green);\">$25,000</strong>",
+  vg2_badge:"진행 중 · R.2", vg2_sub:"얼리 빌리버 &amp; 액티브 빌더", vg2_raise:"목표 모금액: <strong style=\"color:var(--blue);\">$45,000</strong>",
+  vg3_badge:"전략적 · R.3", vg3_sub:"전략적 파트너 &amp; KOL", vg3_raise:"목표 모금액: <strong style=\"color:var(--gold);\">$65,000</strong>",
+  per_token:"WC26 토큰당", vesting_short:"20% TGE · 90일 클리프 · 240일 선형",
+  buy_vg1:"🌱 Vanguard 1 구매", join_vg2:"🌱 Vanguard 2 참여", join_vg3:"🌱 Vanguard 3 참여",
+  cs_phase1:"1단계 · Whitelist", cs_phase2:"2단계 · Public FCFS", cs_phase3:"3단계 · Lottery",
+  register_wl:"Whitelist 등록 →",
+  roi_section:"투자자 ROI — 가격 시나리오",
+  roi_title:"시나리오별 가격 목표 &amp; <span class=\"hi\">ROI 전망</span>",
+  bear_badge:"약세 시나리오", bear_mcap:"FDV: ~$200만 · 저채택",
+  base_badge:"기본 시나리오", base_mcap:"FDV: ~$1,000만 · 성공적 런칭",
+  bull_badge:"강세 시나리오", bull_mcap:"FDV: ~$4,000만 · 바이럴 성장",
+  entry_price:"진입 가격", roi_mult:"ROI", per_10k:"$10K 투자 기준",
+  bear_note:"보수적: WC2026 제한적 성장, 조기 출구 조건",
+  base_note:"기본: WC2026 활발한 참여, 월 100K+ 사용자",
+  bull_note:"강세: 바이럴 WC2026 채택, Sorare / NBA Top Shot 궤적과 유사",
+  comp_title:"비교 프로젝트 (역사적 데이터)",
+  comp_proj:"프로젝트", comp_domain:"도메인", comp_peak:"최대 성장률*",
+  fantasy_nft:"판타지 축구 NFT", sports_nft:"스포츠 NFT 모먼트", game_eco:"GameFi 생태계", gamified:"게이미파이 활동",
+  comp_note:"* 최초 진입 기준 역사적 최고치. 예측 또는 보장 아님.",
+  fdv_title:"FDV 가정 근거",
+  fdv_bear:"약세 — $200만 FDV", fdv_base:"기본 — $1,000만 FDV", fdv_bull:"강세 — $4,000만 FDV",
+  fdv_note:"200M 총 공급량 기준. TGE 시 유통량 ~10–15%.",
+  disclaimer:"⚠ 이 전망은 예시 목적으로만 제공됩니다. 암호화폐 투자에는 원금 전액 손실을 포함한 상당한 위험이 있습니다. WC26 NFT Fantasy는 엔터테인먼트 플랫폼이며 토큰은 금융 상품이 아닙니다. 항상 직접 조사하세요 (DYOR).",
+  road_section:"로드맵 — 8단계",
+  road_title:"규모 이전에 신뢰 · <span class=\"hi\">참여</span> 이전에 수익화",
+  ph0:"기반 구축", ph0_sub:"법적 · DAO-lite", ph1:"Vanguard", ph1_sub:"초기 커뮤니티",
+  ph2:"커뮤니티 런칭", ph2_sub:"토큰 세일 · 유동성", ph3:"아레나 정복", ph3_sub:"Stadium NFT 경매",
+  ph4:"미스터리 박스", ph4_sub:"Player NFT 드롭", ph5:"트랜스퍼 마켓", ph5_sub:"P2P 마켓플레이스",
+  ph6:"MVP 게임", ph7:"WC2026 라이브 🏆", ph7_sub:"전체 운영",
+  wc2026_live:"2026 월드컵 — 라이브 운영 (7단계)",
+  wc2026_desc:"라이브 경기 이벤트 · 동적 보상 조정 · 한정 드롭 · PIQUE AI 실시간 데이터 · 글로벌 커뮤니티 확장",
+  th_phase:"단계", th_objective:"주요 목표", th_products:"핵심 제품", th_role:"전략적 역할",
+  r1_obj:"신뢰 구축 &amp; 조기 정렬", r1_prod:"Vanguard I–III · Vanguard Badge NFT", r1_role:"장기 투자자 확보",
+  r2_obj:"광범위한 토큰 참여 가능", r2_prod:"공개 세일 (Whitelist / FCFS / Lottery)", r2_role:"오픈 커뮤니티 전환",
+  r3_obj:"최고 소유권 레이어", r3_prod:"Stadium NFT 경매 (16 NFTs)", r3_role:"장기 생태계 앵커",
+  r6_obj:"거래량 &amp; 참여 창출", r6_role:"전체 참여 레이어 활성화",
+  gov_section:"거버넌스 &amp; AI",
+  gov_title:"DAO 거버넌스 · AI 운영 · <span style=\"color:var(--poly);\">커뮤니티 소유</span>",
+  dao_title:"🏛 DAO 거버넌스",
+  dao_formula:"거버넌스 권한 = Staking된 WC26 × Staking 기간",
+  dao_tiers_title:"3단계 거버넌스 구조",
+  entry_tier:"기본 단계", entry_desc:"관찰 · 시그널링 · 제한적 투표권",
+  committed_tier:"헌신적 기여자", committed_desc:"운영 제안 · 파라미터 조정",
+  governor_tier:"거버너", governor_desc:"전략 방향 · 헌법적 안전장치 · 역할 임명/해임",
+  dao_note:"Staking 기반 자격으로 조작 방지. 모든 거버넌스 행동은 온체인에서 추적·검토·완전 투명하게 공개됩니다.",
+  pique_title:"🤖 PIQUE AI — 운영 레이어", pique_sub:"OPENCLAW API 기반 · AI 보조 감독 &amp; 실행",
+  pique_can:"PIQUE 역량",
+  pique_1:"시스템 활동 및 참여 신호 실시간 모니터링",
+  pique_2:"DAO 검토를 위한 투명한 운영 및 리스크 보고서 생성",
+  pique_3:"DAO 승인 범위 내 최적화 제안",
+  pique_4:"거버넌스 정책에 따른 승인된 운영 실행",
+  pique_limits:"강성 제한",
+  pique_5:"프라이빗 키 보유 또는 사용자 자금 통제 불가",
+  pique_6:"DAO 명시적 승인 없이 시스템 규칙 수정 불가",
+  pique_quote:"\"PIQUE는 빠르게 행동합니다. DAO는 천천히 결정합니다. Vanguards가 생존을 보장합니다.\"",
+  cta_title:"🏆 얼티밋 아레나에 참여하세요",
+  cta_sub:"2026 월드컵 · 온체인 · 커뮤니티 소유 · AI 구동",
+  cta_web_label:"🌐 공식 웹사이트", cta_web_desc:"자세히 알아보기 · White Paper · 전체 문서 · Arena 개요",
+  cta_seed_label:"🌱 SEED ROUND 구매", cta_seed_desc:"Vanguard 1 · WC26당 $0.0025부터 · 한정 공급 · 최저가", cta_seed_btn:"지금 등록 →",
+  cta_tg_label:"⚡ TELEGRAM 미니게임", cta_tg_desc:"지금 플레이 · WC26 토큰 획득 · 커뮤니티 참여 · Telegram 라이브",
+  ms2_cta:"Stadium NFTs", ms3_cta:"경기 · WC2026", ms4_cta:"Seed 진입 가격",
+  final_disc:"WC26 NFT Fantasy · White Paper v1.5 Final · 2026.02.22 · Polygon 네트워크 · 엔터테인먼트 플랫폼 · 금융 조언 아님",
+  seed_link_short:"🌱 Seed Round"
+}
+};
+
+// ─── APPLY LANGUAGE ───────────────────────────────────────────
+let curLang = 'en';
+
+function setLang(lang){
+  curLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.textContent.trim().includes(lang.toUpperCase())));
+  // Korean font
+  document.body.className = lang === 'ko' ? 'lang-ko' : '';
+  const map = T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(map[key] !== undefined) el.innerHTML = map[key];
+  });
+}
+</script>
+</body>
+</html>
